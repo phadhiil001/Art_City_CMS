@@ -1,6 +1,14 @@
 <?php
 session_start();
-require('config/db_connect.php');  // Database connection
+require('connect.php'); // Database connection
+include('nav.php');
+
+// Check if the user is not logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to the sign-in page or any other appropriate page
+    header('Location: signin.php');
+    exit;
+}
 
 // Retrieve saved values from session
 $firstname = $_SESSION['save']['firstName'] ?? null;

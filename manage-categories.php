@@ -2,19 +2,10 @@
 // Start session
 session_start();
 
-// Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    // Redirect the user to the signin page
-    header('Location: signin.php');
-    exit();
-}
-
-// Get current user ID
-$current_user = $_SESSION['user_id'];
+include('nav.php');
 
 // Establish database connection
 require('connect.php');
-include('nav.php');
 
 // Check if the user is not logged in
 if (!isset($_SESSION['user_id'])) {
@@ -24,36 +15,39 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Prepare and execute query to fetch users (excluding the current user)
-$query = "SELECT * FROM artcityusers WHERE id != :current_user";
-$users = $db->prepare($query);
-$users->bindParam(':current_user', $current_user, PDO::PARAM_INT);
-$users->execute();
+$query = "SELECT * FROM artcitycategories ORDER BY :title";
+$categories = $db->prepare($query);
+$categories->bindParam(':title', $title, PDO::PARAM_INT);
+$categories->execute();
 
 // Check if there are no users
-if ($users->rowCount() == 0) {
-    $noUsersMessage = "No users found in the database.";
+if ($categories->rowCount() == 0) {
+    $noCategoryMessage = "No category found in the database.";
 }
 
 ?>
 
 <section class="dashboard">
-
-    <?php if (isset($_SESSION['success'])) : // show if user was added successfully 
-    ?>
-        <div class="error-message">
-            <p><?= $_SESSION['success']; ?></p>
-        </div>
-        <?php unset($_SESSION['success']); ?>
-    <?php elseif (isset($_SESSION['error'])) : // show if there was an error with updating user
-    ?>
-        <div class="error-message">
-            <p><?= $_SESSION['error']; ?></p>
-        </div>
-        <?php unset($_SESSION['error']); ?>
-    <?php endif ?>
-
-
     <div class="dashboard-container">
+        <?php if (isset($_SESSION['success'])) : // show success update 
+        ?>
+            <div class="error-message">
+                <p><?= $_SESSION['success']; ?></p>
+            </div>
+            <?php unset($_SESSION['success']); ?>
+        <?php elseif (isset($_SESSION['add-category'])) : // show error, if any
+        ?>
+            <div class="error-message">
+                <p><?= $_SESSION['add-category']; ?></p>
+            </div>
+            <?php unset($_SESSION['add-category']); ?>
+        <?php elseif (isset($_SESSION['error'])) :
+        ?>
+            <div class="error-message">
+                <p><?= $_SESSION['error']; ?></p>
+            </div>
+            <?php unset($_SESSION['error']); ?>
+        <?php endif ?>
 
         <aside>
             <ul>
@@ -92,30 +86,26 @@ if ($users->rowCount() == 0) {
             </ul>
         </aside>
         <main>
-            <h2>Manage Users</h2>
-            <?php if (isset($noUsersMessage)) : ?>
+            <h2>Manage Categories</h2>
+            <?php if (isset($noCategoryMessage)) : ?>
                 <div class="error-message">
-                    <p><?= $noUsersMessage; ?></p>
+                    <p><?= $noCategoryMessage; ?></p>
                 </div>
             <?php else : ?>
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Username</th>
+                            <th>Title</th>
                             <th>Edit</th>
                             <th>Delete</th>
-                            <th>Admin</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($row = $users->fetch(PDO::FETCH_ASSOC)) : ?>
+                        <?php while ($row = $categories->fetch(PDO::FETCH_ASSOC)) : ?>
                             <tr>
-                                <td><?= "{$row['firstname']} {$row['lastname']}" ?></td>
-                                <td><?= $row['username']; ?></td>
-                                <td><a href="edit-user.php?id=<?= $row['id'] ?>">Edit</a></td>
-                                <td><a href="delete-user.php?id=<?= $row['id'] ?>">Delete</a></td>
-                                <td><?= $row['is_admin'] ? 'Yes' : 'No'; ?></td>
+                                <td><?= $row['title']; ?></td>
+                                <td><a href="edit-category.php?id=<?= $row['id'] ?>">Edit</a></td>
+                                <td><a href="delete-category.php?id=<?= $row['id'] ?>">Delete</a></td>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>

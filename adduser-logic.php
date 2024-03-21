@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('config/db_connect.php');
+require('connect.php');
 
 if (isset($_POST['submit'])) {
     //  Sanitize user input to escape HTML entities and filter out dangerous characters.

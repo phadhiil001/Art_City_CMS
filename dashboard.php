@@ -1,7 +1,15 @@
 <?php
 
 session_start();
-require('config/db_connect.php');
+require('connect.php');
+include('nav.php');
+
+// Check if the user is not logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to the sign-in page or any other appropriate page
+    header('Location: signin.php');
+    exit;
+}
 
 ?>
 
@@ -28,34 +36,36 @@ require('config/db_connect.php');
                     </a>
                 </li>
                 <li>
-                    <a href="manage-post.php">
+                    <a href="manage-posts.php">
                         <h5>Manage Post</h5>
                     </a>
                 </li>
-                <li>
-                    <a href="add-user.php">
-                        <h5>Add User</h5>
-                    </a>
-                </li>
-                <li>
-                    <a href="manage-users.php">
-                        <h5>Manage Users</h5>
-                    </a>
-                </li>
-                <li>
-                    <a href="add-category.php">
-                        <h5>Add Category</h5>
-                    </a>
-                </li>
-                <li>
-                    <a href="manage-categories.php">
-                        <h5>Manage Categories</h5>
-                    </a>
-                </li>
+                <?php if (isset($_SESSION['user_is_admin'])) : ?>
+                    <li>
+                        <a href="add-user.php">
+                            <h5>Add User</h5>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="manage-users.php">
+                            <h5>Manage Users</h5>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="add-category.php">
+                            <h5>Add Category</h5>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="manage-categories.php">
+                            <h5>Manage Categories</h5>
+                        </a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </aside>
         <main>
-            <h2>Manage Categories</h2>
+            <h2>Manage Posts</h2>
             <table>
                 <thead>
                     <tr>Title</tr>

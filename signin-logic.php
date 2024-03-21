@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('config/db_connect.php');
+require('connect.php');
 
 if (isset($_POST['submit'])) {
     //  Get the data from form
@@ -32,13 +32,14 @@ if (isset($_POST['submit'])) {
         if ($user) {
             // User found, verify password
             if (password_verify($password, $user['password'])) {
-                // Password is correct
+                // Password is correct and access control
                 $_SESSION['user_id'] = $user['id'];
                 // Set session if user is an admin 
                 if ($user['is_admin'] == 1) {
                     $_SESSION['user_is_admin'] = true;
                 }
                 $_SESSION['username'] = $user['username'];
+                $_SESSION['success'] = "Welcome $username_email.";
                 header('Location: dashboard.php');
                 exit();
             } else {

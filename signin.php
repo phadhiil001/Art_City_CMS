@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-require('config/db_connect.php');
+require('connect.php');
+include('nav.php');
 
 // Retrieve saved values from session
 $username_email = $_SESSION['save']['username_email'] ?? null;

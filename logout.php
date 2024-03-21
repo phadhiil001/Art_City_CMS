@@ -1,6 +1,12 @@
 <?php
-require('config/db_connect.php');
+session_start();
 
-// Destroy all sessions and redirect user to homepage 
+// Unset all session variables
+$_SESSION = [];
+
+// Destroy the session
 session_destroy();
-header("Location: index.html");
+
+// Redirect to the sign-in page or any other appropriate page
+header('Location: signin.php');
+exit;

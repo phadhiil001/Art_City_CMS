@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('config/db_connect.php');
+require('connect.php');
 
 if (isset($_POST['submit'])) {
     $id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
