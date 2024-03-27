@@ -63,7 +63,7 @@ if ($users->rowCount() == 0) {
                     </a>
                 </li>
                 <li>
-                    <a href="manage-posts.php">
+                    <a href="dashboard.php">
                         <h5>Manage Post</h5>
                     </a>
                 </li>

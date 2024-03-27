@@ -14,17 +14,14 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Prepare and execute query to fetch users (excluding the current user)
-$query = "SELECT * FROM artcitycategories ORDER BY :title";
-$categories = $db->prepare($query);
-$categories->bindParam(':title', $title, PDO::PARAM_INT);
-$categories->execute();
+// Prepare and execute query to fetch categories ordered by title
+$query = "SELECT * FROM artcitycategories ORDER BY title ASC";
+$categories = $db->query($query);
 
-// Check if there are no users
+// Check if there are no categories
 if ($categories->rowCount() == 0) {
-    $noCategoryMessage = "No category found in the database.";
+    $noCategoryMessage = "No categories found in the database.";
 }
-
 ?>
 
 <section class="dashboard">
@@ -57,7 +54,7 @@ if ($categories->rowCount() == 0) {
                     </a>
                 </li>
                 <li>
-                    <a href="manage-posts.php">
+                    <a href="dashboard.php">
                         <h5>Manage Post</h5>
                     </a>
                 </li>
