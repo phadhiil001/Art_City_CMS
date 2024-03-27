@@ -1,7 +1,6 @@
 <?php
-session_start();
-require('connect.php');  // Database connection
-include('nav.php');
+include('header.php');
+
 
 // Retrieve saved values from session
 $firstname = $_SESSION['save']['firstName'] ?? null;

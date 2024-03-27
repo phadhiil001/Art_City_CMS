@@ -1,6 +1,6 @@
 <?php
-session_start();
-require('connect.php');
+include('header.php');
+
 
 if (isset($_POST['submit'])) {
     //  Get the data from form

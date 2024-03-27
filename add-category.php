@@ -1,8 +1,6 @@
 <?php
 
-session_start();
-require('connect.php');
-include('nav.php');
+include('header.php');
 
 // Check if the user is not logged in
 if (!isset($_SESSION['user_id'])) {
@@ -35,6 +33,11 @@ unset($_SESSION['save']);
                     <p><?= $_SESSION['add-category']; ?></p>
                 </div>
                 <?php unset($_SESSION['add-category']); ?>
+            <?php elseif (isset($_SESSION['error'])) : ?>
+                <div class="error-message">
+                    <p><?= $_SESSION['error']; ?></p>
+                </div>
+                <?php unset($_SESSION['error']); ?>
             <?php endif ?>
 
             <form action="add-category-logic.php" method="post">

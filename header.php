@@ -1,6 +1,7 @@
 <?php
 session_start();       // Start a new session
 require('connect.php');  // Connect to the database
+include('nav.php');
 
 // Fetch user from the database if logged in
 if (isset($_SESSION['user_id'])) {
@@ -15,20 +16,3 @@ if (isset($_SESSION['user_id'])) {
     header('Location: signin.php');
     exit;
 }
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header</title>
-</head>
-
-<body>
-    <?php include('nav.php'); ?>
-
-</body>
-
-</html>

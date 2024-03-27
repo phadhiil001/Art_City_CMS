@@ -1,7 +1,6 @@
 <?php
-session_start();
-require('connect.php');
-include('nav.php');
+include('header.php');
+
 
 
 // Check if the user is not logged in

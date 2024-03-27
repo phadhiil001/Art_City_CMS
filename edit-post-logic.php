@@ -1,6 +1,6 @@
 <?php
-session_start();
-require('connect.php');
+include('header.php');
+
 require('config/ImageResize.php');
 require('config/ImageResizeException.php');
 

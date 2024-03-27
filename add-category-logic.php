@@ -1,7 +1,6 @@
 <?php
 
-session_start();
-require('connect.php');
+include('header.php');
 
 if (isset($_POST['submit'])) {
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -10,12 +9,12 @@ if (isset($_POST['submit'])) {
     if (!$title) {
         $_SESSION['error'] = "Please enter a title.";
         $_SESSION['add-category-data'] = $_POST; // Store form data in session
-        header('Location: add-categories.php');
+        header('Location: add-category.php');
         exit();
     } elseif (!$description) {
         $_SESSION['error'] = "Please enter a description.";
         $_SESSION['add-category-data'] = $_POST; // Store form data in session
-        header('Location: add-categories.php');
+        header('Location: add-category.php');
         exit();
     }
 

@@ -27,23 +27,23 @@ if (isset($_GET['id'])) {
         $delStmt->bindParam(':id', $id, PDO::PARAM_INT);
         $result = $delStmt->execute();
         $_SESSION['success'] = "Category '{$category['title']}' deleted successfully. Posts moved to 'Uncategorized' category.";
-        // if ($result) {
-        //     // Move posts from deleted category to "Uncategorized" category
-        //     $uncategorizedCategoryId = 1; // Adjust this ID based on your "Uncategorized" category ID
-        //     $updatePostsQuery = "UPDATE artcityposts SET category_id=:uncategorizedCategoryId WHERE category_id=:deletedCategoryId";
-        //     $updateStmt = $db->prepare($updatePostsQuery);
-        //     $updateStmt->bindParam(':uncategorizedCategoryId', $uncategorizedCategoryId, PDO::PARAM_INT);
-        //     $updateStmt->bindParam(':deletedCategoryId', $id, PDO::PARAM_INT);
-        //     $updateResult = $updateStmt->execute();
+        if ($result) {
+            // Move posts from deleted category to "Uncategorized" category
+            $uncategorizedCategoryId = 1; // Adjust this ID based on your "Uncategorized" category ID
+            $updatePostsQuery = "UPDATE artcityposts SET category_id=:uncategorizedCategoryId WHERE category_id=:deletedCategoryId";
+            $updateStmt = $db->prepare($updatePostsQuery);
+            $updateStmt->bindParam(':uncategorizedCategoryId', $uncategorizedCategoryId, PDO::PARAM_INT);
+            $updateStmt->bindParam(':deletedCategoryId', $id, PDO::PARAM_INT);
+            $updateResult = $updateStmt->execute();
 
-        //     if ($updateResult) {
-        //         $_SESSION['success'] = "Category '{$category['title']}' deleted successfully. Posts moved to 'Uncategorized' category.";
-        //     } else {
-        //         $_SESSION['error'] = "Failed to move posts to 'Uncategorized' category.";
-        //     }
-        // } else {
-        //     $_SESSION['error'] = "Failed to delete category.";
-        // }
+            if ($updateResult) {
+                $_SESSION['success'] = "Category '{$category['title']}' deleted successfully. Posts moved to 'Uncategorized' category.";
+            } else {
+                $_SESSION['error'] = "Failed to move posts to 'Uncategorized' category.";
+            }
+        } else {
+            $_SESSION['error'] = "Failed to delete category.";
+        }
     } else {
         $_SESSION['error'] = "Category not found.";
     }

@@ -1,6 +1,6 @@
 <?php
-session_start();
-require('connect.php');
+include('header.php');
+
 require('config/ImageResize.php');
 require('config/ImageResizeException.php');
 
@@ -37,6 +37,7 @@ if (isset($_POST['submit'])) {
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $category_id = filter_input(INPUT_POST, 'category_id', FILTER_SANITIZE_NUMBER_INT);
+    $is_featured = filter_input(INPUT_POST, 'is_featured', FILTER_SANITIZE_NUMBER_INT);
     $is_featured = 0; // Initialize is_featured variable to 0
 
     // Check if a new thumbnail is uploaded
@@ -65,6 +66,26 @@ if (isset($_POST['submit'])) {
             header('Location: new-post.php');
             exit();
         }
+    }
+
+    // Validate input
+    if (!$title) {
+        $_SESSION['save'] = $_POST;
+        $_SESSION['error'] = "Title is required.";
+        header('Location: new-post.php');
+        exit();
+    } elseif (!$content) {
+        $_SESSION['save'] = $_POST;
+        $_SESSION['error'] = "Content is required.";
+        header('Location: new-post.php');
+    } elseif (!$category_id) {
+        $_SESSION['save'] = $_POST;
+        $_SESSION['error'] = "Select a category";
+        header('Location: new-post.php');
+    } elseif (!$thumbnail) {
+        $_SESSION['error'] = "Thumbnail image is required.";
+        header('Location: new-post.php?upload=false');
+        exit();
     }
 
     // Insert new post into the database

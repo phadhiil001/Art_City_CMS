@@ -2,10 +2,8 @@
 // Start session
 session_start();
 
-include('nav.php');
+include('header.php');
 
-// Establish database connection
-require('connect.php');
 
 // Check if the user is not logged in
 if (!isset($_SESSION['user_id'])) {

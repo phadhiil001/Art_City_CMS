@@ -1,7 +1,5 @@
 <?php
-session_start();
-require('connect.php'); // Database connection
-include('nav.php');
+include('header.php');
 
 // Check if the user is not logged in
 if (!isset($_SESSION['user_id'])) {

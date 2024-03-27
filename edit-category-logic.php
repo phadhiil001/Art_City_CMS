@@ -1,6 +1,5 @@
 <?php
-session_start();
-require('connect.php');
+include('header.php');
 
 if (isset($_POST['submit'])) {
     $id = filter_input(INPUT_POST, 'category_id', FILTER_SANITIZE_NUMBER_INT);

@@ -1,6 +1,5 @@
 <?php
-session_start();
-require('connect.php');
+include('header.php');
 
 if (isset($_POST['submit'])) {
     //  Sanitize user input to escape HTML entities and filter out dangerous characters.
