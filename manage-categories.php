@@ -1,16 +1,6 @@
 <?php
 // Start session
-session_start();
-
 include('header.php');
-
-
-// Check if the user is not logged in
-if (!isset($_SESSION['user_id'])) {
-    // Redirect to the sign-in page or any other appropriate page
-    header('Location: signin.php');
-    exit;
-}
 
 // Prepare and execute query to fetch categories ordered by title
 $query = "SELECT * FROM artcitycategories ORDER BY title ASC";
@@ -48,33 +38,52 @@ if ($categories->rowCount() == 0) {
             <ul>
                 <li>
                     <a href="new-post.php">
-                        <h5>Add New Post</h5>
+                        <h5>
+                            <img src="logo/pen.png" alt="">
+                            Add New Post
+                        </h5>
                     </a>
                 </li>
                 <li>
                     <a href="dashboard.php">
-                        <h5>Manage Post</h5>
+
+                        <h5>
+                            <img src="logo/manage-post.png" alt="">
+                            Manage Post
+                        </h5>
                     </a>
                 </li>
                 <?php if (isset($_SESSION['user_is_admin'])) : ?>
                     <li>
                         <a href="add-user.php">
-                            <h5>Add User</h5>
+                            <h5>
+                                <img src="logo/add-user.png" alt="">
+                                Add User
+                            </h5>
                         </a>
                     </li>
                     <li>
                         <a href="manage-users.php">
-                            <h5>Manage Users</h5>
+                            <h5>
+                                <img src="logo/manage-user.png" alt="">
+                                Manage Users
+                            </h5>
                         </a>
                     </li>
                     <li>
                         <a href="add-category.php">
-                            <h5>Add Category</h5>
+                            <h5>
+                                <img src="logo/add-category.png" alt="">
+                                Add Category
+                            </h5>
                         </a>
                     </li>
                     <li>
-                        <a href="manage-categories.php">
-                            <h5>Manage Categories</h5>
+                        <a href="manage-categories.php" class="active">
+                            <h5>
+                                <img src="logo/manage-category.png" alt="">
+                                Manage Categories
+                            </h5>
                         </a>
                     </li>
                 <?php endif; ?>

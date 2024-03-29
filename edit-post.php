@@ -1,12 +1,6 @@
 <?php
 include('header.php');
 
-// Check if the post ID is provided via GET
-if (!isset($_GET['id'])) {
-    header('Location: dashboard.php');
-    exit();
-}
-
 if (isset($_GET['id'])) {
     // Fetch the post details from the database based on the provided ID
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);

@@ -2,7 +2,6 @@
 session_start();
 require('connect.php');
 
-
 // Fetch featured post including its thumbnail
 $query = "SELECT * FROM artcityposts WHERE is_featured = 1 LIMIT 1";
 $result = $db->query($query);
@@ -11,13 +10,8 @@ $result = $db->query($query);
 $query_regular = 'SELECT * FROM artcityposts WHERE is_featured = 0 ORDER BY created_date DESC LIMIT 9';
 $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
 
-// Check for featured post
-if ($result && $result->rowCount() > 0) {
-    $featured_post = $result->fetch(PDO::FETCH_ASSOC);
-    $featured_post_thumbnail = $featured_post['thumbnail'];
-}
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,9 +26,10 @@ if ($result && $result->rowCount() > 0) {
     <?php include('nav.php'); ?>
     <section class="featured">
         <div class="container featured_container">
-            <?php if (isset($featured_post)) : ?>
+            <?php if ($result && $result->rowCount() > 0) : ?>
+                <?php $featured_post = $result->fetch(PDO::FETCH_ASSOC); ?>
                 <div class="post_thumbnail">
-                    <img src="./uploads/<?= $featured_post_thumbnail ?>" alt="Featured Post Image" />
+                    <img src="./uploads/<?= $featured_post['thumbnail'] ?>" alt="Featured Post Image" />
                 </div>
                 <div class="post_info">
                     <!-- Fetch category title -->
@@ -46,7 +41,7 @@ if ($result && $result->rowCount() > 0) {
                     $category = $cat_stmt->fetch(PDO::FETCH_ASSOC);
                     $category_title =  $category['title'];
                     ?>
-                    <a href="category-post.php?id=<?= $category_title ?>"><?= $category_title ?></a>
+                    <a href="category-post.php?id=<?= $category['id'] ?>"><?= $category_title ?></a>
                     <a href="post.php?id=<?= $featured_post['id'] ?>">
                         <h2 class="post_title"><?= $featured_post['title'] ?></h2>
                     </a>
@@ -72,7 +67,6 @@ if ($result && $result->rowCount() > 0) {
                     </div>
                 </div>
             <?php endif; ?>
-
         </div>
     </section>
 
@@ -93,7 +87,7 @@ if ($result && $result->rowCount() > 0) {
                         $category = $cat_stmt->fetch(PDO::FETCH_ASSOC);
                         $category_title =  $category['title'];
                         ?>
-                        <a href="category-post.php?id=<?= $category_title ?>"><?= $category_title ?></a>
+                        <a href="category-post.php?id=<?= $category['id'] ?>"><?= $category_title ?></a>
                         <a href="post.php?id=<?= $post['id'] ?>">
                             <h2 class="post_title"><?= $post['title'] ?></h2>
                         </a>
@@ -125,20 +119,25 @@ if ($result && $result->rowCount() > 0) {
         </div>
     </section>
 
+
+
+
     <section class="category_buttons">
         <div class="container category_buttons">
             <?php
             $categories_query = "SELECT * FROM artcitycategories ORDER BY title ASC";
-            $categories_stmt = $db->prepare($categories_query);
-            $categories_stmt->execute();
+            $categories_stmt = $db->query($categories_query);
             ?>
 
-            <?php while ($category = $categories_stmt->fetch(PDO::FETCH_ASSOC)) : ?>
-                <a href="category-post.php?id=<?= $category['id'] ?>"><?= $category['title'] ?></a>
+            <?php while ($cat = $categories_stmt->fetch(PDO::FETCH_ASSOC)) : ?>
+                <a href="category-post.php?id=<?= $cat['id'] ?>"><?= $cat['title'] ?></a>
             <?php endwhile; ?>
         </div>
     </section>
 
+
+
+    
 </body>
 
 </html>

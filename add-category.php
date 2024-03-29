@@ -1,13 +1,5 @@
 <?php
-
 include('header.php');
-
-// Check if the user is not logged in
-if (!isset($_SESSION['user_id'])) {
-    // Redirect to the sign-in page or any other appropriate page
-    header('Location: signin.php');
-    exit;
-}
 
 $title = $_SESSION['add-category-data']['title'] ?? null;
 $description = $_SESSION['add-category-data']['description'] ?? null;

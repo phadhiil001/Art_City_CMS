@@ -1,13 +1,6 @@
 <?php
 include('header.php');
 
-// Check if the user is not logged in
-if (!isset($_SESSION['user_id'])) {
-    // Redirect to the sign-in page or any other appropriate page
-    header('Location: signin.php');
-    exit;
-}
-
 // Retrieve saved values from session
 $firstname = $_SESSION['save']['firstName'] ?? null;
 $lastname = $_SESSION['save']['lastName'] ?? null;

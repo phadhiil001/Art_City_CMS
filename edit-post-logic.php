@@ -6,8 +6,7 @@ require('config/ImageResizeException.php');
 
 function file_upload_path($original_filename, $upload_subfolder_name = 'uploads')
 {
-    $current_folder = dirname(__FILE__);
-    $path_segments = [$current_folder, $upload_subfolder_name, basename($original_filename)];
+    $path_segments = [$upload_subfolder_name, basename($original_filename)];
     return join(DIRECTORY_SEPARATOR, $path_segments);
 }
 
@@ -19,7 +18,10 @@ function file_is_allowed_file($temporary_path, $new_path)
     $actual_file_extension = pathinfo($new_path, PATHINFO_EXTENSION);
     $actual_mime_type = mime_content_type($temporary_path);
 
-    return in_array($actual_file_extension, $allowed_file_extensions) && in_array($actual_mime_type, $allowed_mime_types);
+    $file_extension_is_valid = in_array($actual_file_extension, $allowed_file_extensions);
+    $mime_type_is_valid = in_array($actual_mime_type, $allowed_mime_types);
+
+    return $file_extension_is_valid && $mime_type_is_valid;
 }
 
 function resize_file($original_filename, $new_path, $max_width)
@@ -28,6 +30,7 @@ function resize_file($original_filename, $new_path, $max_width)
     $image->resizeToWidth($max_width);
     $image->save($new_path);
 }
+
 
 if (isset($_POST['submit'])) {
     $author_id = $_SESSION['user_id'];
@@ -47,16 +50,10 @@ if (isset($_POST['submit'])) {
 
         if (file_is_allowed_file($temporary_thumbnail_path, $new_thumbnail_path)) {
             move_uploaded_file($temporary_thumbnail_path, $new_thumbnail_path);
-            $thumbnail = $new_thumbnail_path;
+            $thumbnail = basename($thumbnail_filename); // Use only the filename without the path
 
-            $file_extension = pathinfo($thumbnail_filename, PATHINFO_EXTENSION);
-            $file_name = pathinfo($thumbnail_filename, PATHINFO_FILENAME);
-
-            $medium_thumbnail_path = file_upload_path($file_name . "_medium." . $file_extension);
-            $thumbnail_thumbnail_path = file_upload_path($file_name . "_thumbnail." . $file_extension);
-
-            resize_file($new_thumbnail_path, $medium_thumbnail_path, 400);
-            resize_file($new_thumbnail_path, $thumbnail_thumbnail_path, 50);
+            // Resize the thumbnail to match the width of 600px
+            resize_file($new_thumbnail_path, $new_thumbnail_path, 600);
         } else {
             $_SESSION['error'] = "Invalid file type. Only GIF, JPG, and JPEG files are allowed.";
             header('Location: edit-post.php?id=' . $_POST['id']);

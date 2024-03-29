@@ -1,13 +1,6 @@
 <?php
 include('header.php');
 
-// Check if the user is not logged in
-if (!isset($_SESSION['user_id'])) {
-    // Redirect to the sign-in page or any other appropriate page
-    header('Location: signin.php');
-    exit;
-}
-
 // Prepare and execute query to fetch categories ordered by title
 $query = "SELECT * FROM artcitycategories ORDER BY title ASC";
 $categories = $db->query($query);

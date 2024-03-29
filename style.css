@@ -1,0 +1,378 @@
+/* FONTS */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/*--------------------------------------------------*/
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Body Styles */
+body {
+  background-color: #f2f2f2;
+  /* font-family: Arial, sans-serif; */
+  /* background-color: #f2f2f2; */
+}
+
+.error-message {
+  background-color: #ffe6e6;
+  border: 1px solid #ff9999;
+  color: #cc0000;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+/* -------------------------------------------------------------------------- */
+
+/* -------------------- SIGN UP AND SIGN IN BELOW --------------------------- */
+
+.sign_in {
+  background-color: #b8b7b7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.sign_up {
+  background-color: #b8b7b7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  /* height: 100vh; */
+}
+
+.signin-container {
+  background-color: white;
+  border: 1px solid;
+  border-radius: 15px;
+  padding: 6rem;
+  box-shadow: 10px 10px 5px black;
+}
+
+.signup-container {
+  background-color: white;
+  border: 1px solid;
+  border-radius: 30px;
+  padding: 3rem;
+  box-shadow: 10px 10px 5px black;
+  /* height: 95vh; */
+  width: 45vw;
+}
+
+.sign_in_head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.sign_in_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+form input[type="text"],
+form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+}
+
+form button:hover {
+  background-color: #f04907;
+}
+
+.sign_in_form small {
+  font-size: 12px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.sign_in_form small a {
+  color: #007bff;
+}
+
+.sign_in_form small a:hover {
+  color: #cc0000;
+  font-size: medium;
+  transition: font-size 0.4s ease;
+}
+
+/* -------------------------------------------------------------------------- */
+
+/* -------------------- SIGN UP AND SIGN IN ABOVE --------------------------- */
+
+/* -------------------------------------------------------------------------- */
+
+/* -------------------- NAV BAR AND AVARTAR BELOW --------------------------- */
+
+nav {
+  background-color: #333;
+  padding: 0.5rem;
+}
+
+.nav__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.logo {
+  width: 7rem;
+  background-color: white;
+}
+
+.nav_items {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.nav_items li:not(:last-child) {
+  margin-right: 20px;
+}
+
+.nav_items li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.4s ease;
+}
+
+.nav_items li a:hover {
+  color: #f49a3e;
+}
+
+/* Profile Dropdown */
+.nav_profile {
+  position: relative;
+  cursor: pointer;
+}
+
+.nav_profile ul {
+  position: absolute;
+  top: 4rem;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+  background-color: #4b4a4d;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.nav_profile:hover > ul {
+  visibility: visible;
+  opacity: 1;
+}
+
+.nav_profile ul li a {
+  display: block;
+  padding: 1rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.nav_profile ul li a:hover {
+  /* background-color: #626162;  */
+  color: #f49a3e;
+}
+
+/* Avatar Styles */
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 0.3rem solid white;
+}
+
+/* -------------------------------------------------------------------------- */
+
+/* -------------------- NAV BAR AND AVARTAR ABOVE --------------------------- */
+
+/* General Styles */
+
+.dashboard {
+  margin: 5rem 7rem;
+}
+
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 14rem auto;
+  gap: 1rem;
+  background-color: #333;
+  padding: 2rem;
+  margin-bottom: 5rem;
+}
+
+.dashboard aside a {
+  background-color: #f49a3e;
+  display: flex;
+}
+
+.dashboard asideul li:not(:last-child) a {
+  border-bottom: ipx solid gray;
+}
+
+.dashboard aside a:hover {
+  background-color: #e08122;
+}
+
+.dashboard aside a.active {
+  background-color: #e08122;
+}
+
+aside h5 {
+  margin-bottom: 15px;
+  color: #333;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.6rem;
+}
+
+.dashboard main {
+  margin-left: 1.5rem;
+}
+
+.dashboard h2 {
+  margin: 0 0 2rem 0;
+  line-height: 1;
+}
+
+.dashboard main table {
+  width: 100%;
+  text-align: left;
+}
+
+.dashboard main table th {
+  background-color: #f49a3e;
+  padding: 0.8rem;
+  color: white;
+}
+
+.dashboard main table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid gray;
+}
+
+.dashboard main table tr:hover td {
+  background-color: #ff9999;
+  color: white;
+  cursor: default;
+  /* transition: ; */
+}
+/* 
+aside a.button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+aside a.button.primary {
+  background-color: #007bff;
+}
+
+aside a.button.secondary {
+  background-color: #6c757d;
+}
+
+aside a.button:hover {
+  opacity: 0.8;
+}
+
+main {
+  width: 75%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+main h2 {
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 12px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f49a3e;
+  color: #fff;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table tbody tr:hover {
+  background-color: #e0e0e0;
+}
+
+.error-message {
+  background-color: #ffe6e6;
+  border: 1px solid #ff9999;
+  color: #cc0000;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+a:hover {
+  color: #0056b3;
+} */

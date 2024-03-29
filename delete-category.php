@@ -1,13 +1,5 @@
 <?php
-session_start();
-require('connect.php');
-
-// Check if the user is not logged in
-if (!isset($_SESSION['user_id'])) {
-    // Redirect to the sign-in page or any other appropriate page
-    header('Location: signin.php');
-    exit;
-}
+include('header.php');
 
 if (isset($_GET['id'])) {
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
