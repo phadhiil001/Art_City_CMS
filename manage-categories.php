@@ -13,27 +13,26 @@ if ($categories->rowCount() == 0) {
 ?>
 
 <section class="dashboard">
+    <?php if (isset($_SESSION['success'])) : // show success update 
+    ?>
+        <div class="error-message">
+            <p><?= $_SESSION['success']; ?></p>
+        </div>
+        <?php unset($_SESSION['success']); ?>
+    <?php elseif (isset($_SESSION['add-category'])) : // show error, if any
+    ?>
+        <div class="error-message">
+            <p><?= $_SESSION['add-category']; ?></p>
+        </div>
+        <?php unset($_SESSION['add-category']); ?>
+    <?php elseif (isset($_SESSION['error'])) :
+    ?>
+        <div class="error-message">
+            <p><?= $_SESSION['error']; ?></p>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif ?>
     <div class="dashboard-container">
-        <?php if (isset($_SESSION['success'])) : // show success update 
-        ?>
-            <div class="error-message">
-                <p><?= $_SESSION['success']; ?></p>
-            </div>
-            <?php unset($_SESSION['success']); ?>
-        <?php elseif (isset($_SESSION['add-category'])) : // show error, if any
-        ?>
-            <div class="error-message">
-                <p><?= $_SESSION['add-category']; ?></p>
-            </div>
-            <?php unset($_SESSION['add-category']); ?>
-        <?php elseif (isset($_SESSION['error'])) :
-        ?>
-            <div class="error-message">
-                <p><?= $_SESSION['error']; ?></p>
-            </div>
-            <?php unset($_SESSION['error']); ?>
-        <?php endif ?>
-
         <aside>
             <ul>
                 <li>

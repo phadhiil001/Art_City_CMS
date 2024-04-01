@@ -28,9 +28,11 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
         <div class="container featured_container">
             <?php if ($result && $result->rowCount() > 0) : ?>
                 <?php $featured_post = $result->fetch(PDO::FETCH_ASSOC); ?>
-                <div class="post_thumbnail">
-                    <img src="./uploads/<?= $featured_post['thumbnail'] ?>" alt="Featured Post Image" />
-                </div>
+                <?php if (isset($post['thumbnail'])) : ?>
+                    <div class="post_thumbnail">
+                        <img src="./uploads/<?= $featured_post['thumbnail'] ?>" alt="Featured Post Image" />
+                    </div>
+                <?php endif; ?>
                 <div class="post_info">
                     <!-- Fetch category title -->
                     <?php
@@ -74,9 +76,11 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
         <div class="container post_container">
             <?php foreach ($regular_posts as $post) : ?>
                 <article class="post">
-                    <div class="post_thumbnail">
-                        <img src="./uploads/<?= $post['thumbnail'] ?>" alt="Post Image" />
-                    </div>
+                    <?php if (isset($post['thumbnail'])) : ?>
+                        <div class="post_thumbnail">
+                            <img src="./uploads/<?= $post['thumbnail'] ?>" alt="Post Image" />
+                        </div>
+                    <?php endif; ?>
                     <div class="post_info">
                         <!-- Fetch category title -->
                         <?php
@@ -137,7 +141,7 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-    
+
 </body>
 
 </html>

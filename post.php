@@ -43,16 +43,18 @@ if (isset($_GET['id'])) {
                 ?>
                 <div class="post_author_img">
                     <!-- Display user icon -->
-                    <img src="" alt="" />
+                    <img src="logo/user.png" alt="" />
                 </div>
                 <div class="post_author_info">
                     <h5>By: <?= "{$author['firstname']} {$author['lastname']}" ?></h5>
                     <small><?= date("M d, Y - H:i", strtotime($post['created_date'])) ?></small>
                 </div>
             </div>
-            <div class="singlepost_thumbnail">
-                <img src="./uploads/<?= $post['thumbnail'] ?>" alt="Post Image" />
-            </div>
+            <?php if (isset($post['thumbnail'])) : ?>
+                <div class="singlepost_thumbnail">
+                    <img src="./uploads/<?= $post['thumbnail'] ?>" alt="Post Image" />
+                </div>
+            <?php endif; ?>
             <div class="post_info">
                 <!-- Fetch category title -->
                 <?php
@@ -63,7 +65,7 @@ if (isset($_GET['id'])) {
                 $category = $cat_stmt->fetch(PDO::FETCH_ASSOC);
                 $category_title =  $category['title'];
                 ?>
-                <a href="category-post.php?id=<?= $category_title ?>"><?= $category_title ?></a>
+                <a href="category-post.php?id=<?= $category_id ?>"><?= $category_title ?></a>
 
                 <p class="post_content"><?= $post['content'] ?></p>
             </div>

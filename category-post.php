@@ -43,9 +43,11 @@ $category_title = $category['title'];
         ?>
         <?php foreach ($regular_posts as $post) : ?>
             <article class="post">
-                <div class="post_thumbnail">
-                    <img src="./uploads/<?= $post['thumbnail'] ?>" alt="Post Image" />
-                </div>
+                <?php if (isset($post['thumbnail'])) : ?>
+                    <div class="post_thumbnail">
+                        <img src="./uploads/<?= $post['thumbnail'] ?>" alt="Post Image" />
+                    </div>
+                <?php endif; ?>
                 <div class="post_info">
                     <a href="post.php?id=<?= $post['id'] ?>">
                         <h2 class="post_title"><?= $post['title'] ?></h2>
@@ -64,7 +66,7 @@ $category_title = $category['title'];
                     ?>
                     <div class="post_author_img">
                         <!-- Display user icon -->
-                        <img src="" alt="Author Image" />
+                        <img src="logo/user.png" alt="Author Image" />
                     </div>
                     <div class="post_author_info">
                         <h5>By: <?= "{$author['firstname']} {$author['lastname']}" ?></h5>
