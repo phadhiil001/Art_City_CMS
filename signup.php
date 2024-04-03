@@ -26,17 +26,17 @@ unset($_SESSION['save']);
 </head>
 
 <body>
-    <section class="sign_up">
-        <div class="signup-container">
-            <h2 class="sign_in_head">Sign Up</h2>
+    <section class="form__section">
+        <div class="container form__section-container">
+            <h2>Sign Up</h2>
             <?php if (isset($_SESSION['error'])) : ?>
-                <div class="error-message">
+                <div class="alert__message error">
                     <p><?= $_SESSION['error']; ?></p>
                 </div>
                 <?php unset($_SESSION['error']); ?>
             <?php endif ?>
 
-            <form action="signup-logic.php" method="post" class="sign_in_form">
+            <form action="signup-logic.php" method="post">
                 <input type="text" name="firstName" placeholder="First Name" value="<?= htmlspecialchars($firstname) ?>">
 
                 <input type="text" name="lastName" placeholder="Last Name" value="<?= htmlspecialchars($lastname) ?>">
@@ -49,7 +49,7 @@ unset($_SESSION['save']);
 
                 <input type="password" name="confirmPassword" placeholder="Confirm Password" value="<?= htmlspecialchars($confirmpassword) ?>">
 
-                <button type="submit" name="submit">Sign Up</button>
+                <button type="submit" name="submit" class="btn">Sign Up</button>
                 <small>Already have an account? <a href="signin.php">Sign In</a></small>
             </form>
         </div>

@@ -24,35 +24,32 @@ unset($_SESSION['save']);
 </head>
 
 <body>
-    <section class="sign_in">
-        <div class="signin-container">
+    <section class="form__section">
+        <div class="container form__section-container">
 
-            <div class="sign_in_head">
-                <h2>Create an account</h2>
-                <h4>Enter your email to sign up for this app</h4>
-            </div>
+            <h2>Sign In</h2>
 
             <?php if (isset($_SESSION['registration'])) : ?>
-                <div class="error-message">
+                <div class="alert__message success">
                     <p><?= $_SESSION['registration']; ?></p>
                 </div>
                 <?php unset($_SESSION['registration']); ?>
 
             <?php elseif (isset($_SESSION['error'])) : ?>
-                <div class="error-message">
+                <div class="alert__message success">
                     <p><?= $_SESSION['error']; ?></p>
                 </div>
                 <?php unset($_SESSION['error']); ?>
             <?php endif ?>
 
 
-            <form action="signin-logic.php" method="post" class="sign_in_form">
+            <form action="signin-logic.php" method="post">
                 <input type="text" id="userName" name="username_email" value="<?= htmlspecialchars($username_email) ?>" placeholder="User Name or Email">
 
                 <input type="password" id="enterPassword" name="password" value="<?= htmlspecialchars($password) ?>" placeholder="Enter Password">
 
 
-                <button type="submit" name="submit">Sign In</button>
+                <button type="submit" name="submit" class="btn">Sign In</button>
                 <small>Don't have an account? <a href="signup.php">Sign Up</a></small>
             </form>
         </div>

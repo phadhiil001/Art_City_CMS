@@ -23,34 +23,22 @@ unset($_SESSION['save']);
 </head>
 
 <body>
-    <section>
-        <div>
-            <h2>Add a user</h2>
+    <section class="form__section">
+        <div class="container form__section-container">
+            <h2>Add User</h2>
 
             <?php if (isset($_SESSION['add-user'])) : ?>
-                <div class="error-message">
+                <div class="alert__message error">
                     <p><?= $_SESSION['add-user']; ?></p>
                 </div>
                 <?php unset($_SESSION['add-user']); ?>
             <?php endif ?>
-
             <form action="adduser-logic.php" method="post">
-                <label for="firstName">First Name:</label>
                 <input type="text" name="firstName" placeholder="First Name" value="<?= $firstname ?>">
-                <br>
-                <label for="lastName">Last Name:</label>
                 <input type="text" name="lastName" placeholder="Last Name" value="<?= $lastname ?>">
-                <br>
-                <label for="userName">Username:</label>
                 <input type="text" name="userName" placeholder="User Name" value="<?= $username ?>">
-                <br>
-                <label for="emailInput">Email Address:</label>
                 <input type="text" name="email" placeholder="Email Address" value="<?= $email ?>">
-                <br>
-                <label for="createPassword">Create Password</label>
                 <input type="password" name="createPassword" placeholder="Create Password" value="<?= $createpassword ?>">
-                <br>
-                <label for="confirmPassword">Confirm Password</label>
                 <input type="password" name="confirmPassword" placeholder="Confirm Password" value="<?= $confirmpassword ?>">
 
                 <select name="userrole">
@@ -58,7 +46,7 @@ unset($_SESSION['save']);
                     <option value="1">Admin</option>
                 </select>
 
-                <button type="submit" name="submit">Add User</button>
+                <button type="submit" name="submit" class="btn">Add User</button>
 
             </form>
         </div>

@@ -70,18 +70,31 @@ if (isset($_GET['id'])) {
 
             <p class="post_content"><?= $post['content'] ?></p>
 
-            <div class="comments">
-                <h2>Comment</h2>
-                <form action="signin-logic.php" method="post" class="sign_in_form">
-                    <input type="text" id="name" name="name" placeholder="Enter your name">
+        </div>
+    </section>
 
-                    <textarea id="comment" name="comment" placeholder="Enter your comment"></textarea>
+    <div class="container form__section-container">
+        <h2>Comment</h2>
+        <form action="signin-logic.php" method="post">
+            <input type="text" id="name" name="name" placeholder="Enter your name">
+
+            <textarea rows="10" id="comment" name="comment" placeholder="Enter your comment"></textarea>
 
 
-                    <button type="submit" name="submit">Submit</button>
-                </form>
-            </div>
+            <button type="submit" name="submit" class="btn">Submit</button>
+        </form>
+    </div>
 
+    <section class="category__buttons">
+        <div class="container category__buttons-container">
+            <?php
+            $categories_query = "SELECT * FROM artcitycategories ORDER BY title ASC";
+            $categories_stmt = $db->query($categories_query);
+            ?>
+
+            <?php while ($cat = $categories_stmt->fetch(PDO::FETCH_ASSOC)) : ?>
+                <a href="category-post.php?id=<?= $cat['id'] ?>" class="category__button"><?= $cat['title'] ?></a>
+            <?php endwhile; ?>
         </div>
     </section>
 </body>
