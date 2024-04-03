@@ -60,28 +60,28 @@ unset($_SESSION['save']);
         <?php unset($_SESSION['error']); ?>
     <?php endif ?>
     <form action="edit-post-logic.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?php echo $id; ?>">
+        <input type="hidden" name="id" value="<?= $id; ?>">
         <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" value="<?php echo $title; ?>"><br><br>
+        <input type="text" id="title" name="title" value="<?= $title; ?>"><br><br>
 
         <label for="content">Content:</label><br>
-        <textarea id="content" name="content" rows="4" cols="50"><?php echo $content; ?></textarea><br><br>
+        <textarea id="content" name="content" rows="4" cols="50"><?= $content; ?></textarea><br><br>
 
         <label for="category">Category:</label><br>
         <select id="category" name="category_id">
             <?php foreach ($categories as $category) : ?>
-                <option value="<?php echo $category['id']; ?>" <?php echo ($category['id'] == $category_id) ? 'selected' : ''; ?>>
-                    <?php echo $category['title']; ?>
+                <option value="<?= $category['id']; ?>" <?= ($category['id'] == $category_id) ? 'selected' : ''; ?>>
+                    <?= $category['title']; ?>
                 </option>
             <?php endforeach; ?>
         </select><br><br>
 
         <label for="thumbnail">Thumbnail:</label><br>
-        <img src="<?php echo $thumbnail; ?>" alt="Thumbnail" style="width: 100px;"><br>
+        <img src="<?= $thumbnail; ?>" alt="Thumbnail" style="width: 100px;"><br>
         <input type="file" id="thumbnail" name="thumbnail"><br><br>
 
         <label for="is_featured">Featured:</label>
-        <input type="checkbox" id="is_featured" name="is_featured" <?php echo ($is_featured == 1) ? 'checked' : ''; ?>><br><br>
+        <input type="checkbox" id="is_featured" name="is_featured" <?= ($is_featured == 1) ? 'checked' : ''; ?>><br><br>
 
         <input type="submit" name="submit" value="Submit">
     </form>

@@ -24,16 +24,15 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
 <body>
 
     <?php include('nav.php'); ?>
+
     <section class="featured">
-        <div class="container featured_container">
+        <div class="container featured__container">
             <?php if ($result && $result->rowCount() > 0) : ?>
                 <?php $featured_post = $result->fetch(PDO::FETCH_ASSOC); ?>
-                <?php if (isset($post['thumbnail'])) : ?>
-                    <div class="post_thumbnail">
-                        <img src="./uploads/<?= $featured_post['thumbnail'] ?>" alt="Featured Post Image" />
-                    </div>
-                <?php endif; ?>
-                <div class="post_info">
+                <div class="post__thumbnail">
+                    <img src="./uploads/<?= $featured_post['thumbnail'] ?>" alt="Featured Post Image" />
+                </div>
+                <div class="post__info">
                     <!-- Fetch category title -->
                     <?php
                     $category_id = $featured_post["category_id"];
@@ -43,45 +42,47 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
                     $category = $cat_stmt->fetch(PDO::FETCH_ASSOC);
                     $category_title =  $category['title'];
                     ?>
-                    <a href="category-post.php?id=<?= $category['id'] ?>"><?= $category_title ?></a>
-                    <a href="post.php?id=<?= $featured_post['id'] ?>">
-                        <h2 class="post_title"><?= $featured_post['title'] ?></h2>
-                    </a>
-                    <p class="post_content"><?= substr($featured_post['content'], 0, 200) . '...' ?></p>
-                </div>
-                <div class="post_author">
-                    <?php
-                    // Fetch author information
-                    $author_id = $featured_post['author_id'];
-                    $authors_query = "SELECT * FROM artcityusers WHERE id = :author_id";
-                    $authors_stmt = $db->prepare($authors_query);
-                    $authors_stmt->bindParam(":author_id", $author_id, PDO::PARAM_INT);
-                    $authors_stmt->execute();
-                    $author = $authors_stmt->fetch(PDO::FETCH_ASSOC);
-                    ?>
-                    <div class="post_author_img">
-                        <!-- Display user icon -->
-                        <img src="" alt="" />
+                    <a href="category-post.php?id=<?= $category['id'] ?>" class="category__button"><?= $category_title ?></a>
+                    <h2 class="post__title"><a href="post.php?id=<?= $featured_post['id'] ?>">
+                            <?= $featured_post['title'] ?></a></h2>
+
+                    <p class="post__body"><?= substr($featured_post['content'], 0, 200) . '...' ?></p>
+
+                    <div class="post__author">
+                        <?php
+                        // Fetch author information
+                        $author_id = $featured_post['author_id'];
+                        $authors_query = "SELECT * FROM artcityusers WHERE id = :author_id";
+                        $authors_stmt = $db->prepare($authors_query);
+                        $authors_stmt->bindParam(":author_id", $author_id, PDO::PARAM_INT);
+                        $authors_stmt->execute();
+                        $author = $authors_stmt->fetch(PDO::FETCH_ASSOC);
+                        ?>
+                        <div class="post__author-avatar">
+                            <!-- Display user icon -->
+                            <img src="logo/user.png" alt="" />
+                        </div>
+                        <div class="post__author-info">
+                            <h5>By: <?= "{$author['firstname']} {$author['lastname']}" ?></h5>
+                            <small><?= date("M d, Y - H:i", strtotime($featured_post['created_date'])) ?></small>
+                        </div>
                     </div>
-                    <div class="post_author_info">
-                        <h5>By: <?= "{$author['firstname']} {$author['lastname']}" ?></h5>
-                        <small><?= date("M d, Y - H:i", strtotime($featured_post['created_date'])) ?></small>
-                    </div>
                 </div>
+
             <?php endif; ?>
         </div>
     </section>
 
     <section class="posts">
-        <div class="container post_container">
+        <div class="container posts__container">
             <?php foreach ($regular_posts as $post) : ?>
                 <article class="post">
                     <?php if (isset($post['thumbnail'])) : ?>
-                        <div class="post_thumbnail">
+                        <div class="post__thumbnail">
                             <img src="./uploads/<?= $post['thumbnail'] ?>" alt="Post Image" />
                         </div>
                     <?php endif; ?>
-                    <div class="post_info">
+                    <div class="post__info">
                         <!-- Fetch category title -->
                         <?php
                         $category_id = $post["category_id"];
@@ -91,13 +92,13 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
                         $category = $cat_stmt->fetch(PDO::FETCH_ASSOC);
                         $category_title =  $category['title'];
                         ?>
-                        <a href="category-post.php?id=<?= $category['id'] ?>"><?= $category_title ?></a>
-                        <a href="post.php?id=<?= $post['id'] ?>">
-                            <h2 class="post_title"><?= $post['title'] ?></h2>
-                        </a>
-                        <p class="post_content"><?= substr($post['content'], 0, 150) . '...' ?></p>
+                        <a href="category-post.php?id=<?= $category['id'] ?>" class="category__button"><?= $category_title ?></a>
+                        <h3 class="post__title"><a href="post.php?id=<?= $post['id'] ?>">
+                                <?= $post['title'] ?></a></h3>
+
+                        <p class="post__body"><?= substr($post['content'], 0, 150) . '...' ?></p>
                     </div>
-                    <div class="post_author">
+                    <div class="post__author">
                         <?php
                         // Fetch author information
                         $author_id = $post['author_id'];
@@ -107,11 +108,11 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
                         $authors_stmt->execute();
                         $author = $authors_stmt->fetch(PDO::FETCH_ASSOC);
                         ?>
-                        <div class="post_author_img">
+                        <div class="post__author-avatar">
                             <!-- Display user icon -->
-                            <img src="" alt="" />
+                            <img src="logo/user.png" alt="" />
                         </div>
-                        <div class="post_author_info">
+                        <div class="post__author-info">
                             <h5>By: <?= "{$author['firstname']} {$author['lastname']}" ?></h5>
                             <small><?= date("M d, Y - H:i", strtotime($post['created_date'])) ?></small>
                         </div>
@@ -126,15 +127,15 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-    <section class="category_buttons">
-        <div class="container category_buttons">
+    <section class="category__buttons">
+        <div class="container category__buttons-container">
             <?php
             $categories_query = "SELECT * FROM artcitycategories ORDER BY title ASC";
             $categories_stmt = $db->query($categories_query);
             ?>
 
             <?php while ($cat = $categories_stmt->fetch(PDO::FETCH_ASSOC)) : ?>
-                <a href="category-post.php?id=<?= $cat['id'] ?>"><?= $cat['title'] ?></a>
+                <a href="category-post.php?id=<?= $cat['id'] ?>" class="category__button"><?= $cat['title'] ?></a>
             <?php endwhile; ?>
         </div>
     </section>

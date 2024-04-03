@@ -29,9 +29,10 @@ if (isset($_GET['id'])) {
 
 <body>
     <section class="singlepost">
-        <div class="container singlepost_container">
-            <h2 class="post_title"><?= $post['title'] ?></h2>
-            <div class="post_author">
+        <div class="container singlepost__container">
+            <h2><?= $post['title'] ?></h2>
+            <div class="post__author">
+
                 <?php
                 // Fetch author information
                 $author_id = $post['author_id'];
@@ -41,33 +42,44 @@ if (isset($_GET['id'])) {
                 $authors_stmt->execute();
                 $author = $authors_stmt->fetch(PDO::FETCH_ASSOC);
                 ?>
-                <div class="post_author_img">
+                <div class="post__author-avatar">
                     <!-- Display user icon -->
                     <img src="logo/user.png" alt="" />
                 </div>
-                <div class="post_author_info">
+                <div class="post__author-info">
                     <h5>By: <?= "{$author['firstname']} {$author['lastname']}" ?></h5>
                     <small><?= date("M d, Y - H:i", strtotime($post['created_date'])) ?></small>
                 </div>
             </div>
             <?php if (isset($post['thumbnail'])) : ?>
-                <div class="singlepost_thumbnail">
+                <div class="singlepost__thumbnail">
                     <img src="./uploads/<?= $post['thumbnail'] ?>" alt="Post Image" />
                 </div>
             <?php endif; ?>
-            <div class="post_info">
-                <!-- Fetch category title -->
-                <?php
-                $category_id = $post["category_id"];
-                $cat_query = 'SELECT * FROM artcitycategories WHERE id = ?';
-                $cat_stmt = $db->prepare($cat_query);
-                $cat_stmt->execute([$category_id]);
-                $category = $cat_stmt->fetch(PDO::FETCH_ASSOC);
-                $category_title =  $category['title'];
-                ?>
-                <a href="category-post.php?id=<?= $category_id ?>"><?= $category_title ?></a>
 
-                <p class="post_content"><?= $post['content'] ?></p>
+            <!-- Fetch category title -->
+            <?php
+            $category_id = $post["category_id"];
+            $cat_query = 'SELECT * FROM artcitycategories WHERE id = ?';
+            $cat_stmt = $db->prepare($cat_query);
+            $cat_stmt->execute([$category_id]);
+            $category = $cat_stmt->fetch(PDO::FETCH_ASSOC);
+            $category_title =  $category['title'];
+            ?>
+            <a href="category-post.php?id=<?= $category_id ?>"><?= $category_title ?></a>
+
+            <p class="post_content"><?= $post['content'] ?></p>
+
+            <div class="comments">
+                <h2>Comment</h2>
+                <form action="signin-logic.php" method="post" class="sign_in_form">
+                    <input type="text" id="name" name="name" placeholder="Enter your name">
+
+                    <textarea id="comment" name="comment" placeholder="Enter your comment"></textarea>
+
+
+                    <button type="submit" name="submit">Submit</button>
+                </form>
             </div>
 
         </div>

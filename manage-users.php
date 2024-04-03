@@ -41,58 +41,38 @@ if ($users->rowCount() == 0) {
     <?php endif ?>
 
 
-    <div class="dashboard-container">
-
+    <div class="container dashboard__container">
         <aside>
             <ul>
                 <li>
-                    <a href="new-post.php">
-                        <h5>
-                            <img src="logo/pen.png" alt="">
-                            Add New Post
-                        </h5>
+                    <a href="new-post.php"><i class="uil uil-pen"></i>
+                        <h5>Add New Post</h5>
                     </a>
                 </li>
                 <li>
-                    <a href="dashboard.php">
-
-                        <h5>
-                            <img src="logo/manage-post.png" alt="">
-                            Manage Post
-                        </h5>
+                    <a href="dashboard.php"><i class="uil uil-postcard"></i>
+                        <h5>Manage Posts</h5>
                     </a>
                 </li>
                 <?php if (isset($_SESSION['user_is_admin'])) : ?>
                     <li>
-                        <a href="add-user.php">
-                            <h5>
-                                <img src="logo/add-user.png" alt="">
-                                Add User
-                            </h5>
+                        <a href="add-user.php"><i class="uil uil-user-plus"></i>
+                            <h5>Add User</h5>
                         </a>
                     </li>
                     <li>
-                        <a href="manage-users.php">
-                            <h5>
-                                <img src="logo/manage-user.png" alt="">
-                                Manage Users
-                            </h5>
+                        <a href="manage-users.php" class="active"><i class="uil uil-users-alt"></i>
+                            <h5>Manage User</h5>
                         </a>
                     </li>
                     <li>
-                        <a href="add-category.php">
-                            <h5>
-                                <img src="logo/add-category.png" alt="">
-                                Add Category
-                            </h5>
+                        <a href="add-category.php"><i class="uil uil-edit"></i>
+                            <h5>Add Category</h5>
                         </a>
                     </li>
                     <li>
-                        <a href="manage-categories.php">
-                            <h5>
-                                <img src="logo/manage-category.png" alt="">
-                                Manage Categories
-                            </h5>
+                        <a href="manage-categories.php"><i class="uil uil-list-ul"></i>
+                            <h5>Manage Categories</h5>
                         </a>
                     </li>
                 <?php endif; ?>
@@ -120,8 +100,8 @@ if ($users->rowCount() == 0) {
                             <tr>
                                 <td><?= "{$row['firstname']} {$row['lastname']}" ?></td>
                                 <td><?= $row['username']; ?></td>
-                                <td><a href="edit-user.php?id=<?= $row['id'] ?>">Edit</a></td>
-                                <td><a href="delete-user.php?id=<?= $row['id'] ?>">Delete</a></td>
+                                <td><a href="edit-user.php?id=<?= $row['id'] ?>" class="btn sm">Edit</a></td>
+                                <td><a href="delete-user.php?id=<?= $row['id'] ?>" class="btn sm danger">Delete</a></td>
                                 <td><?= $row['is_admin'] ? 'Yes' : 'No'; ?></td>
                             </tr>
                         <?php endwhile; ?>

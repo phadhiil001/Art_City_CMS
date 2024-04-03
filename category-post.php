@@ -27,12 +27,12 @@ $category = $cat_stmt->fetch(PDO::FETCH_ASSOC);
 $category_title = $category['title'];
 ?>
 
-<header class="category_title">
+<header class="category__title">
     <h1><?= $category_title ?></h1>
 </header>
 
 <section class="posts">
-    <div class="container post_container">
+    <div class="container posts__container">
         <?php
         // Fetch regular posts
         $regular_posts_query = "SELECT * FROM artcityposts WHERE category_id=:category_id ORDER BY created_date DESC";
@@ -48,29 +48,31 @@ $category_title = $category['title'];
                         <img src="./uploads/<?= $post['thumbnail'] ?>" alt="Post Image" />
                     </div>
                 <?php endif; ?>
-                <div class="post_info">
-                    <a href="post.php?id=<?= $post['id'] ?>">
-                        <h2 class="post_title"><?= $post['title'] ?></h2>
-                    </a>
-                    <p class="post_content"><?= substr($post['content'], 0, 150) . '...' ?></p>
-                </div>
-                <div class="post_author">
-                    <?php
-                    // Fetch author information
-                    $author_id = $post['author_id'];
-                    $authors_query = "SELECT * FROM artcityusers WHERE id = :author_id";
-                    $authors_stmt = $db->prepare($authors_query);
-                    $authors_stmt->bindParam(":author_id", $author_id, PDO::PARAM_INT);
-                    $authors_stmt->execute();
-                    $author = $authors_stmt->fetch(PDO::FETCH_ASSOC);
-                    ?>
-                    <div class="post_author_img">
-                        <!-- Display user icon -->
-                        <img src="logo/user.png" alt="Author Image" />
-                    </div>
-                    <div class="post_author_info">
-                        <h5>By: <?= "{$author['firstname']} {$author['lastname']}" ?></h5>
-                        <small><?= date("M d, Y - H:i", strtotime($post['created_date'])) ?></small>
+                <div class="post__info">
+                    <h3 class="post__title"><a href="post.php?id=<?= $post['id'] ?>" class="category__button">
+                            <?= $post['title'] ?></a></h3>
+
+                    <p class="post__body">
+                    <p class="post__body"><?= substr($post['content'], 0, 150) . '...' ?></p>
+
+                    <div class="post__author">
+                        <?php
+                        // Fetch author information
+                        $author_id = $post['author_id'];
+                        $authors_query = "SELECT * FROM artcityusers WHERE id = :author_id";
+                        $authors_stmt = $db->prepare($authors_query);
+                        $authors_stmt->bindParam(":author_id", $author_id, PDO::PARAM_INT);
+                        $authors_stmt->execute();
+                        $author = $authors_stmt->fetch(PDO::FETCH_ASSOC);
+                        ?>
+                        <div class="post__author-avatar">
+                            <!-- Display user icon -->
+                            <img src="logo/user.png" alt="Author Image" />
+                        </div>
+                        <div class="post__author-info">
+                            <h5>By: <?= "{$author['firstname']} {$author['lastname']}" ?></h5>
+                            <small><?= date("M d, Y - H:i", strtotime($post['created_date'])) ?></small>
+                        </div>
                     </div>
                 </div>
             </article>
@@ -82,15 +84,15 @@ $category_title = $category['title'];
 
 
 
-<section class="category_buttons">
-    <div class="container category_buttons">
+<section class="category__buttons">
+    <div class="container category__buttons-container">
         <?php
         $categories_query = "SELECT * FROM artcitycategories ORDER BY title ASC";
         $categories_stmt = $db->query($categories_query);
         ?>
 
         <?php while ($cat = $categories_stmt->fetch(PDO::FETCH_ASSOC)) : ?>
-            <a href="category-post.php?id=<?= $cat['id'] ?>"><?= $cat['title'] ?></a>
+            <a href="category-post.php?id=<?= $cat['id'] ?>" class="category__button"><?= $cat['title'] ?></a>
         <?php endwhile; ?>
     </div>
 </section>
