@@ -118,8 +118,6 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                     </div>
                 </article>
-                <br><br>
-                <hr>
             <?php endforeach; ?>
         </div>
     </section>

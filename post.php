@@ -16,6 +16,22 @@ if (isset($_GET['id'])) {
     exit();
 }
 
+// Retrieve saved values from session
+$author = isset($_SESSION['save']['author']) ? $_SESSION['save']['author'] : '';
+$comment = isset($_SESSION['save']['comment']) ? $_SESSION['save']['comment'] : '';
+
+// Unset the saved values from session to prevent them from persisting after use
+unset($_SESSION['save']);
+
+// Fetch comments associated with the specific post ID
+$query = "SELECT * FROM artcitycomments WHERE post_id=:post_id ORDER BY created_date DESC";
+$stmt = $db->prepare($query);
+$stmt->bindParam(':post_id', $id, PDO::PARAM_INT);
+$stmt->execute();
+$comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 ?>
 
 <!DOCTYPE html>
@@ -40,14 +56,14 @@ if (isset($_GET['id'])) {
                 $authors_stmt = $db->prepare($authors_query);
                 $authors_stmt->bindParam(":author_id", $author_id, PDO::PARAM_INT);
                 $authors_stmt->execute();
-                $author = $authors_stmt->fetch(PDO::FETCH_ASSOC);
+                $author_info = $authors_stmt->fetch(PDO::FETCH_ASSOC);
                 ?>
                 <div class="post__author-avatar">
                     <!-- Display user icon -->
                     <img src="logo/user.png" alt="" />
                 </div>
                 <div class="post__author-info">
-                    <h5>By: <?= "{$author['firstname']} {$author['lastname']}" ?></h5>
+                    <h5>By: <?= "{$author_info['firstname']} {$author_info['lastname']}" ?></h5>
                     <small><?= date("M d, Y - H:i", strtotime($post['created_date'])) ?></small>
                 </div>
             </div>
@@ -73,12 +89,47 @@ if (isset($_GET['id'])) {
         </div>
     </section>
 
-    <div class="container form__section-container">
-        <h2>Comment</h2>
-        <form action="signin-logic.php" method="post">
-            <input type="text" id="name" name="name" placeholder="Enter your name">
+    <?php if (isset($_SESSION['registration']) || isset($_SESSION['error'])) : ?>
+        <div class="container">
+            <?php if (isset($_SESSION['registration'])) : ?>
+                <div class="alert__message success">
+                    <p><?= $_SESSION['registration']; ?></p>
+                </div>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['error'])) : ?>
+                <div class="alert__message error">
+                    <p><?= $_SESSION['error']; ?></p>
+                </div>
+            <?php endif; ?>
+        </div>
+        <?php unset($_SESSION['registration']); ?>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
 
-            <textarea rows="10" id="comment" name="comment" placeholder="Enter your comment"></textarea>
+    <div class="container form__section-container">
+
+        <?php if (!empty($comments)) : ?>
+            <h2>Comments:</h2>
+            <?php foreach ($comments as $comment) : ?>
+
+                <div class="post__author-avatar">
+                    <!-- Display user icon -->
+                    <img src="logo/user.png" alt="" />
+                </div>
+                <div class="post__author-info">
+                    <h5><strong><?= htmlspecialchars($comment['author']) ?>:</strong> <?= htmlspecialchars($comment['comment']) ?></h5>
+                    <small>Posted on: <?= $comment['created_date'] ?></small>
+                </div><br>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+
+
+        <h3>Add a Comment:</h3>
+        <form action="comment-logic.php" method="post">
+            <input type="hidden" name="post_id" value="<?= $id ?>">
+            <input type="text" name="author" placeholder="Enter your name" value="<?= isset($author) && is_string($author) ? htmlspecialchars($author) : '' ?>">
+            <textarea rows="10" name="comment" placeholder="Enter your comment"><?= isset($comment) && is_string($comment) ? htmlspecialchars($comment) : '' ?></textarea>
 
 
             <button type="submit" name="submit" class="btn">Submit</button>
