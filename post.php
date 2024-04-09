@@ -108,21 +108,24 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="container form__section-container">
 
-        <?php if (!empty($comments)) : ?>
-            <h2>Comments:</h2>
-            <?php foreach ($comments as $comment) : ?>
-
-                <div class="post__author-avatar">
-                    <!-- Display user icon -->
-                    <img src="logo/user.png" alt="" />
-                </div>
-                <div class="post__author-info">
-                    <h5><strong><?= htmlspecialchars($comment['author']) ?>:</strong> <?= htmlspecialchars($comment['comment']) ?></h5>
-                    <small>Posted on: <?= $comment['created_date'] ?></small>
-                </div><br>
-            <?php endforeach; ?>
-        <?php endif; ?>
-
+        <?php foreach ($comments as $comment) : ?>
+            <div class="post__author-avatar">
+                <!-- Display user icon -->
+                <img src="logo/user.png" alt="" />
+            </div>
+            <div class="post__author-info">
+                <h5><strong><?= htmlspecialchars($comment['author']) ?>:</strong> <?= htmlspecialchars($comment['comment']) ?></h5>
+                <small>Posted on: <?= $comment['created_date'] ?></small>
+            </div>
+            <div>
+                <?php if (isset($_SESSION['user_is_admin'])) : ?>
+                    <ul class="admin-actions">
+                        <!-- Delete Button -->
+                        <li><a href="delete-comment.php?id=<?= $comment['id'] ?>" class="btn sm danger">Delete</a></li>
+                    </ul>
+                <?php endif; ?>
+            </div><br>
+        <?php endforeach; ?>
 
 
         <h3>Add a Comment:</h3>
