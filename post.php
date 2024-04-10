@@ -32,8 +32,6 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -134,6 +132,12 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <input type="text" name="author" placeholder="Enter your name" value="<?= isset($author) && is_string($author) ? htmlspecialchars($author) : '' ?>">
             <textarea rows="10" name="comment" placeholder="Enter your comment"><?= isset($comment) && is_string($comment) ? htmlspecialchars($comment) : '' ?></textarea>
 
+            <!-- Display CAPTCHA image -->
+            <img src="captcha.php" alt="CAPTCHA">
+
+            <!-- Add input field for CAPTCHA -->
+            <label for="captcha_input">Enter CAPTCHA:</label>
+            <input type="text" id="captcha_input" name="captcha_input">
 
             <button type="submit" name="submit" class="btn">Submit</button>
         </form>

@@ -1,8 +1,10 @@
 <?php
 session_start();
 require('connect.php');
+require('captcha.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // Check if all fields are filled
     if (isset($_POST['post_id'], $_POST['author'], $_POST['comment']) && !empty($_POST['post_id']) && !empty($_POST['author']) && !empty($_POST['comment'])) {
         // Retrieve data from the form
@@ -24,6 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['registration'] = "Comment added successfully";
         } else {
             $_SESSION["error"] = "Error adding the comment. Please try again later.";
+        }
+
+        // Validate CAPTCHA code
+        if ($_POST['captcha'] !== $_SESSION['captcha_code']) {
+            $_SESSION['error'] = "Incorrect CAPTCHA code. Please try again.";
+            header("Location: {$_SERVER['HTTP_REFERER']}");
+            exit();
         }
     } else {
         $_SESSION["error"] = "Please fill out all fields.";
