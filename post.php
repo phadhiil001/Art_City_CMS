@@ -129,18 +129,18 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <h3>Add a Comment:</h3>
         <form action="comment-logic.php" method="post">
             <input type="hidden" name="post_id" value="<?= $id ?>">
-            <input type="text" name="author" placeholder="Enter your name" value="<?= isset($author) && is_string($author) ? htmlspecialchars($author) : '' ?>">
-            <textarea rows="10" name="comment" placeholder="Enter your comment"><?= isset($comment) && is_string($comment) ? htmlspecialchars($comment) : '' ?></textarea>
+            <input type="text" name="author" placeholder="Enter your name" value="<?= isset($_SESSION['comment_author']) ? htmlspecialchars($_SESSION['comment_author']) : '' ?>">
+            <textarea rows="10" name="comment" placeholder="Enter your comment"><?= isset($_SESSION['comment_text']) ? htmlspecialchars($_SESSION['comment_text']) : '' ?></textarea>
 
             <!-- Display CAPTCHA image -->
             <img src="captcha.php" alt="CAPTCHA">
 
             <!-- Add input field for CAPTCHA -->
-            <label for="captcha_input">Enter CAPTCHA:</label>
-            <input type="text" id="captcha_input" name="captcha_input">
+            <input type="text" id="captcha_input" name="captcha" placeholder="Enter CAPTCHA">
 
             <button type="submit" name="submit" class="btn">Submit</button>
         </form>
+
     </div>
 
     <section class="category__buttons">

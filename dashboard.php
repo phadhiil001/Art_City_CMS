@@ -1,24 +1,31 @@
 <?php
 include('header.php');
 
-// Check if the user is an admin
-// if (!isset($_SESSION['user_is_admin']) || $_SESSION['user_is_admin'] !== true) {
-//     // Redirect to the dashboard or show an error message
-//     header("Location: dashboard.php");
-//     exit; // Make sure to exit after a redirect to prevent further execution
+// Check if the user is an admin or logged-in
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: login.php");
+//     exit;
 // }
 
-// Fetch all posts along with category name for admin
-$query_all_posts = "SELECT p.id, p.title, c.title AS category_title 
+// Fetch all posts along with category name
+$query_all_posts = "SELECT p.id, p.title, p.created_date, c.title AS category_title 
                     FROM artcityposts p 
-                    JOIN artcitycategories c ON p.category_id = c.id 
-                    ORDER BY p.id DESC";
+                    JOIN artcitycategories c ON p.category_id = c.id";
+
+// Add sorting logic based on the selected criteria
+$sort_by = isset($_GET['sort']) ? $_GET['sort'] : 'title'; // Default sorting by title
+$sort_direction = isset($_GET['dir']) && $_GET['dir'] === 'desc' ? 'DESC' : 'ASC'; // Default sorting direction
+$valid_sort_columns = ['title', 'created_date', 'category_title'];
+if (in_array($sort_by, $valid_sort_columns)) {
+    $query_all_posts .= " ORDER BY $sort_by $sort_direction";
+}
+
 $all_posts_stmt = $db->query($query_all_posts);
 $all_posts = $all_posts_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch posts of current user along with category name for artist
+// Fetch posts of the current user
 $current_user = $_SESSION['user_id'];
-$query_user_posts = "SELECT p.id, p.title, c.title AS category_title 
+$query_user_posts = "SELECT p.id, p.title, p.created_date, c.title AS category_title 
                      FROM artcityposts p 
                      JOIN artcitycategories c ON p.category_id = c.id 
                      WHERE p.author_id = :current_user 
@@ -63,6 +70,8 @@ if ($user_posts_result && $user_posts_stmt->rowCount() > 0) {
             <?php unset($_SESSION['error']); ?>
         <?php endif ?>
         <div class="container dashboard__container">
+
+
             <aside>
                 <ul>
                     <li>
@@ -101,6 +110,20 @@ if ($user_posts_result && $user_posts_stmt->rowCount() > 0) {
             </aside>
             <main>
                 <h2>Manage Posts</h2>
+                <p>Sort by:
+                    <a href="?sort=title&dir=<?php echo ($sort_by === 'title' && $sort_direction === 'ASC') ? 'desc' : 'asc'; ?>" <?php if ($sort_by === 'title') echo 'class="active"'; ?>>
+                        Title <?php if ($sort_by === 'title') echo ($sort_direction === 'ASC') ? '&#9650;' : '&#9660;'; ?>
+                    </a> |
+                    <a href="?sort=created_date&dir=<?php echo ($sort_by === 'created_date' && $sort_direction === 'ASC') ? 'desc' : 'asc'; ?>" <?php if ($sort_by === 'created_date') echo 'class="active"'; ?>>
+                        Created Date <?php if ($sort_by === 'created_date') echo ($sort_direction === 'ASC') ? '&#9650;' : '&#9660;'; ?>
+                    </a> |
+                    <a href="?sort=category_title&dir=<?php echo ($sort_by === 'category_title' && $sort_direction === 'ASC') ? 'desc' : 'asc'; ?>" <?php if ($sort_by === 'category_title') echo 'class="active"'; ?>>
+                        Category <?php if ($sort_by === 'category_title') echo ($sort_direction === 'ASC') ? '&#9650;' : '&#9660;'; ?>
+                    </a>
+                </p>
+
+
+
                 <?php if (isset($no_post_message)) : ?>
                     <div class="error-message">
                         <p><?= $no_post_message; ?></p>
@@ -110,6 +133,7 @@ if ($user_posts_result && $user_posts_stmt->rowCount() > 0) {
                         <thead>
                             <tr>
                                 <th>Title</th>
+                                <th>Created Date</th>
                                 <th>Category</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
@@ -121,6 +145,7 @@ if ($user_posts_result && $user_posts_stmt->rowCount() > 0) {
                                 <?php foreach ($all_posts as $post) : ?>
                                     <tr>
                                         <td><?= $post['title']; ?></td>
+                                        <td><?= $post['created_date']; ?></td>
                                         <td><?= $post['category_title']; ?></td>
                                         <td><a href="edit-post.php?id=<?= $post['id'] ?>" class="btn sm">Edit</a></td>
                                         <td><a href="delete-post.php?id=<?= $post['id'] ?>" class="btn sm danger">Delete</a></td>
@@ -131,6 +156,7 @@ if ($user_posts_result && $user_posts_stmt->rowCount() > 0) {
                                 <?php foreach ($user_posts as $post) : ?>
                                     <tr>
                                         <td><?= $post['title']; ?></td>
+                                        <td><?= $post['created_date']; ?></td>
                                         <td><?= $post['category_title']; ?></td>
                                         <td><a href="edit-post.php?id=<?= $post['id'] ?>" class="btn sm">Edit</a></td>
                                         <td><a href="delete-post.php?id=<?= $post['id'] ?>" class="btn sm danger">Delete</a></td>
