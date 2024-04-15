@@ -31,7 +31,6 @@ function resize_file($original_filename, $new_path, $max_width)
     $image->save($new_path);
 }
 
-
 if (isset($_POST['submit'])) {
     $author_id = $_SESSION['user_id'];
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -62,6 +61,23 @@ if (isset($_POST['submit'])) {
     } else {
         $thumbnail = $previous_thumbnail;
     }
+
+    // Check if the "Delete" checkbox for the thumbnail is checked
+    if (isset($_POST['delete_thumbnail']) && $_POST['delete_thumbnail'] == 'on') {
+        // Delete the current thumbnail from the file system
+        if (!empty($thumbnail)) {
+            $thumbnail_path = file_upload_path($thumbnail);
+            if (file_exists($thumbnail_path)) {
+                unlink($thumbnail_path);
+            }
+        }
+        // Delete the current thumbnail from the database
+        $query_delete_thumbnail = "UPDATE artcityposts SET thumbnail = NULL WHERE id = :id";
+        $stmt_delete_thumbnail = $db->prepare($query_delete_thumbnail);
+        $stmt_delete_thumbnail->bindParam(':id', $_POST['id'], PDO::PARAM_INT);
+        $stmt_delete_thumbnail->execute();
+    }
+
 
     if (!$title || !$content || !$category_id) {
         $_SESSION['error'] = "Please fill in all the required fields.";

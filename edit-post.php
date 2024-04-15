@@ -16,7 +16,6 @@ if (isset($_GET['id'])) {
         exit();
     }
 
-
     // Assign post details to variables
     $title = htmlspecialchars($post['title']);
     $content = htmlspecialchars($post['content']);
@@ -41,7 +40,6 @@ if (isset($_GET['id'])) {
 unset($_SESSION['save']);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,39 +50,53 @@ unset($_SESSION['save']);
 </head>
 
 <body>
-    <h2>Edit Post</h2>
-    <?php if (isset($_SESSION['error'])) : ?>
-        <div class="error-message">
-            <p><strong><?= $_SESSION['error']; ?></strong></p>
+    <section class="form__section">
+        <div class="container form__section-container">
+            <h2>Edit Post</h2>
+            <?php if (isset($_SESSION['error'])) : ?>
+                <div class="error-message">
+                    <p><strong><?= $_SESSION['error']; ?></strong></p>
+                </div>
+                <?php unset($_SESSION['error']); ?>
+            <?php endif ?>
+            <form action="edit-post-logic.php" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<?= $id; ?>">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" value="<?= $title; ?>">
+
+                <label for="content">Content:</label>
+                <textarea id="content" name="content" rows="4" cols="50"><?= $content; ?></textarea>
+
+                <label for="category">Category:</label>
+                <select id="category" name="category_id">
+                    <?php foreach ($categories as $category) : ?>
+                        <option value="<?= $category['id']; ?>" <?= ($category['id'] == $category_id) ? 'selected' : ''; ?>>
+                            <?= $category['title']; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+
+                <div class="form__control">
+                    <label for="thumbnail">Thumbnail:</label>
+                    <?php if (!empty($thumbnail)) : ?>
+                        <img src="<?= 'uploads/' . $thumbnail; ?>" alt="Thumbnail">
+                    <?php endif; ?>
+                    <input type="file" id="thumbnail" name="thumbnail">
+                </div>
+
+
+                <div class="form__control inline">
+                    <label for="is_featured">Featured:</label>
+                    <input type="checkbox" id="is_featured" name="is_featured" <?= ($is_featured == 1) ? 'checked' : ''; ?>>
+
+                    <label for="delete_thumbnail">Delete Thumbnail:</label>
+                    <input type="checkbox" id="delete_thumbnail" name="delete_thumbnail">
+                </div>
+
+                <button type="submit" name="submit" class="btn">Update Post</button>
+            </form>
         </div>
-        <?php unset($_SESSION['error']); ?>
-    <?php endif ?>
-    <form action="edit-post-logic.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?= $id; ?>">
-        <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" value="<?= $title; ?>"><br><br>
-
-        <label for="content">Content:</label><br>
-        <textarea id="content" name="content" rows="4" cols="50"><?= $content; ?></textarea><br><br>
-
-        <label for="category">Category:</label><br>
-        <select id="category" name="category_id">
-            <?php foreach ($categories as $category) : ?>
-                <option value="<?= $category['id']; ?>" <?= ($category['id'] == $category_id) ? 'selected' : ''; ?>>
-                    <?= $category['title']; ?>
-                </option>
-            <?php endforeach; ?>
-        </select><br><br>
-
-        <label for="thumbnail">Thumbnail:</label><br>
-        <img src="<?= $thumbnail; ?>" alt="Thumbnail" style="width: 100px;"><br>
-        <input type="file" id="thumbnail" name="thumbnail"><br><br>
-
-        <label for="is_featured">Featured:</label>
-        <input type="checkbox" id="is_featured" name="is_featured" <?= ($is_featured == 1) ? 'checked' : ''; ?>><br><br>
-
-        <input type="submit" name="submit" value="Submit">
-    </form>
+    </section>
 </body>
 
 </html>
