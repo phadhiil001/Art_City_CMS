@@ -106,6 +106,7 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="container form__section-container">
 
+        <!-- Display comments -->
         <?php foreach ($comments as $comment) : ?>
             <div class="post__author-avatar">
                 <!-- Display user icon -->
@@ -125,19 +126,16 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div><br>
         <?php endforeach; ?>
 
-
         <h3>Add a Comment:</h3>
         <form action="comment-logic.php" method="post">
             <input type="hidden" name="post_id" value="<?= $id ?>">
-            <input type="text" name="author" placeholder="Enter your name" value="<?= isset($_SESSION['comment_author']) ? htmlspecialchars($_SESSION['comment_author']) : '' ?>">
             <textarea rows="10" name="comment" placeholder="Enter your comment"><?= isset($_SESSION['comment_text']) ? htmlspecialchars($_SESSION['comment_text']) : '' ?></textarea>
-
-            <!-- Display CAPTCHA image -->
-            <img src="captcha.php" alt="CAPTCHA">
-
-            <!-- Add input field for CAPTCHA -->
-            <input type="text" id="captcha_input" name="captcha" placeholder="Enter CAPTCHA">
-
+            <?php if (!isset($_SESSION['user_id'])) : ?>
+                <!-- If user is not logged in, allow them to enter their name and captcha -->
+                <img src="captcha.php" alt="CAPTCHA">
+                <input type="text" id="captcha_input" name="captcha" placeholder="Enter CAPTCHA">
+                <input type="text" name="author" placeholder="Enter your name" value="<?= isset($_SESSION['comment_author']) ? htmlspecialchars($_SESSION['comment_author']) : '' ?>">
+            <?php endif ?>
             <button type="submit" name="submit" class="btn">Submit</button>
         </form>
 
