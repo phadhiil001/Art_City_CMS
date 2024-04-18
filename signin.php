@@ -36,7 +36,7 @@ unset($_SESSION['save']);
                 <?php unset($_SESSION['registration']); ?>
 
             <?php elseif (isset($_SESSION['error'])) : ?>
-                <div class="alert__message success">
+                <div class="alert__message error">
                     <p><?= $_SESSION['error']; ?></p>
                 </div>
                 <?php unset($_SESSION['error']); ?>

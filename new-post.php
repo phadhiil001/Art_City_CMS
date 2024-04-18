@@ -31,6 +31,7 @@ unset($_SESSION['save']);
     <section class="form__section">
         <div class="container form__section-container">
             <div>
+                <button class="btn"><a href="dashboard.php">Back</a></button>
                 <h2>New Post</h2>
                 <?php if (isset($_SESSION['success'])) : // show success update 
                 ?>
@@ -62,7 +63,7 @@ unset($_SESSION['save']);
                         <?php endwhile; ?>
                     </select>
 
-                    <textarea rows="10" id="content" name="content" value="<?= htmlspecialchars($content) ?>" placeholder="Add Content"></textarea>
+                    <textarea rows="10" id="content" name="content" placeholder="Add Content"><?= htmlspecialchars_decode($content); ?></textarea>
 
                     <?php if (isset($_SESSION['user_is_admin'])) : ?>
                         <div class="form__control inline">

@@ -18,7 +18,9 @@ unset($_SESSION['save']);
 
 <body>
     <section class="form__section">
+
         <div class="container form__section-container">
+            <button class="btn"><a href="manage-categories.php">Back</a></button>
             <h2>Add Category</h2>
 
             <?php if (isset($_SESSION['add-category'])) : ?>

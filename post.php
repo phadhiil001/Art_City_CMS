@@ -80,7 +80,7 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $category = $cat_stmt->fetch(PDO::FETCH_ASSOC);
             $category_title =  $category['title'];
             ?>
-            <a href="category-post.php?id=<?= $category_id ?>"><?= $category_title ?></a>
+            <a href="category-post.php?id=<?= $category_id ?>" class="category__button"><?= $category_title ?></a>
 
             <p class="post_content"><?= $post['content'] ?></p>
 
@@ -153,6 +153,20 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endwhile; ?>
         </div>
     </section>
+
+
+    <footer>
+        <div class="footer__socials">
+            <a href="https://youtube.com" target="_blank"><i class="uil uil-youtube"></i></a>
+            <a href="https://facebook.com" target="_blank"><i class="uil uil-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="uil uil-instagram-alt"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="uil uil-linkedin"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="uil uil-twitter"></i></a>
+        </div>
+        <div class="footer__copyright">
+            <small>Copyright &copy; Fadlullah</small>
+        </div>
+    </footer>
 </body>
 
 </html>

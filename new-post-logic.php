@@ -58,8 +58,8 @@ if (isset($_POST['submit'])) {
                 $is_featured = 1;
             }
 
-            // Resize and save the image to a width of 600px
-            resize_file($new_thumbnail_path, $new_thumbnail_path, 600);
+            // Resize and save the image to a width of 200px
+            resize_file($new_thumbnail_path, $new_thumbnail_path, 200);
         } else {
             $_SESSION['error'] = "Invalid file type. Only GIF, JPG, and JPEG files are allowed.";
             header('Location: new-post.php');

@@ -25,11 +25,12 @@ if (isset($_GET['id'])) {
 }
 ?>
 
-<section class="form section">
-    <div class="container form section-container">
+<section class="form__section">
+    <div class="container form__section-container">
+        <button class="btn"><a href="manage-users.php">Back</a></button>
         <h2>Edit User</h2>
         <?php if (isset($_SESSION['error'])) : ?>
-            <div class="error-message">
+            <div class="alert__message error">
                 <p><?= $_SESSION['error']; ?></p>
             </div>
             <?php unset($_SESSION['error']); ?>
@@ -44,7 +45,7 @@ if (isset($_GET['id'])) {
                 <option value="1" <?php echo $is_admin == 1 ? 'selected' : ''; ?>>Admin</option>
             </select>
             <input type="hidden" name="user_id" value="<?= $id ?>">
-            <button type="submit" name="submit">Update User</button>
+            <button type="submit" name="submit" class="btn">Update User</button>
         </form>
     </div>
 </section>

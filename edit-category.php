@@ -31,11 +31,12 @@ if (isset($_GET['id'])) {
 }
 ?>
 
-<section class="form section">
-    <div class="container form section-container">
+<section class="form__section">
+    <div class="container form__section-container">
+        <button class="btn"><a href="manage-categories.php">Back</a></button>
         <h2>Edit Category</h2>
         <?php if (isset($_SESSION['error'])) : ?>
-            <div class="error-message">
+            <div class="alert__message error">
                 <p><?= $_SESSION['error']; ?></p>
             </div>
             <?php unset($_SESSION['error']); ?>
@@ -46,7 +47,7 @@ if (isset($_GET['id'])) {
             <textarea rows="4" name="description" placeholder="Description"><?= $description ?></textarea>
 
             <input type="hidden" name="category_id" value="<?= $id ?>">
-            <button type="submit" name="submit">Update Category</button>
+            <button type="submit" name="submit" class="btn">Update Category</button>
         </form>
     </div>
 </section>

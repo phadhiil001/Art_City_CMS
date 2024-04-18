@@ -28,7 +28,7 @@ $category_title = $category['title'];
 ?>
 
 <header class="category__title">
-    <h1><?= $category_title ?></h1>
+    <h2><?= $category_title ?></h2>
 </header>
 
 <section class="posts">
@@ -44,15 +44,15 @@ $category_title = $category['title'];
         <?php foreach ($regular_posts as $post) : ?>
             <article class="post">
                 <?php if (isset($post['thumbnail'])) : ?>
-                    <div class="post_thumbnail">
+                    <div class="post__thumbnail">
                         <img src="./uploads/<?= $post['thumbnail'] ?>" alt="Post Image" />
                     </div>
                 <?php endif; ?>
                 <div class="post__info">
-                    <h3 class="post__title"><a href="post.php?id=<?= $post['id'] ?>" class="category__button">
-                            <?= $post['title'] ?></a></h3>
+                    <h3 class="post__title">
+                        <a href="post.php?id=<?= $post['id'] ?>" class="category__button"><?= $post['title'] ?></a>
+                    </h3>
 
-                    <p class="post__body">
                     <p class="post__body"><?= substr($post['content'], 0, 150) . '...' ?></p>
 
                     <div class="post__author">
@@ -76,8 +76,7 @@ $category_title = $category['title'];
                     </div>
                 </div>
             </article>
-            <br><br>
-            <hr>
+
         <?php endforeach; ?>
     </div>
 </section>
@@ -96,3 +95,17 @@ $category_title = $category['title'];
         <?php endwhile; ?>
     </div>
 </section>
+
+
+<footer>
+    <div class="footer__socials">
+        <a href="https://youtube.com" target="_blank"><i class="uil uil-youtube"></i></a>
+        <a href="https://facebook.com" target="_blank"><i class="uil uil-facebook-f"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="uil uil-instagram-alt"></i></a>
+        <a href="https://linkedin.com" target="_blank"><i class="uil uil-linkedin"></i></a>
+        <a href="https://twitter.com" target="_blank"><i class="uil uil-twitter"></i></a>
+    </div>
+    <div class="footer__copyright">
+        <small>Copyright &copy; Fadlullah</small>
+    </div>
+</footer>

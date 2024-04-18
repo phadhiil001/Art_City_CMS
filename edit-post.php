@@ -52,9 +52,10 @@ unset($_SESSION['save']);
 <body>
     <section class="form__section">
         <div class="container form__section-container">
+            <button class="btn"><a href="dashboard.php">Back</a></button>
             <h2>Edit Post</h2>
             <?php if (isset($_SESSION['error'])) : ?>
-                <div class="error-message">
+                <div class="alert__message error">
                     <p><strong><?= $_SESSION['error']; ?></strong></p>
                 </div>
                 <?php unset($_SESSION['error']); ?>
@@ -65,7 +66,7 @@ unset($_SESSION['save']);
                 <input type="text" id="title" name="title" value="<?= $title; ?>">
 
                 <label for="content">Content:</label>
-                <textarea id="content" name="content" rows="4" cols="50"><?= $content; ?></textarea>
+                <textarea id="content" name="content" rows="20" cols="50"><?= $content; ?></textarea>
 
                 <label for="category">Category:</label>
                 <select id="category" name="category_id">
@@ -79,7 +80,9 @@ unset($_SESSION['save']);
                 <div class="form__control">
                     <label for="thumbnail">Thumbnail:</label>
                     <?php if (!empty($thumbnail)) : ?>
-                        <img src="<?= 'uploads/' . $thumbnail; ?>" alt="Thumbnail">
+                        <div>
+                            <img src="<?= 'uploads/' . $thumbnail; ?>" alt="Thumbnail"><br>
+                        </div>
                     <?php endif; ?>
                     <input type="file" id="thumbnail" name="thumbnail">
                 </div>
@@ -89,9 +92,11 @@ unset($_SESSION['save']);
                     <label for="is_featured">Featured:</label>
                     <input type="checkbox" id="is_featured" name="is_featured" <?= ($is_featured == 1) ? 'checked' : ''; ?>>
 
-                    <label for="delete_thumbnail">Delete Thumbnail:</label>
-                    <input type="checkbox" id="delete_thumbnail" name="delete_thumbnail">
+                    <?php if (!empty($thumbnail)) : ?>
+                        <a href="delete-thumbnail.php?id=<?= $post['id'] ?>" class="btn">Delete Thumbnail</a>
+                    <?php endif; ?>
                 </div>
+
 
                 <button type="submit" name="submit" class="btn">Update Post</button>
             </form>

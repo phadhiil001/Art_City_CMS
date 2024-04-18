@@ -7,7 +7,7 @@ $query = "SELECT * FROM artcityposts WHERE is_featured = 1 LIMIT 1";
 $result = $db->query($query);
 
 // Fetch 9 regular posts from the database
-$query_regular = 'SELECT * FROM artcityposts WHERE is_featured = 0 ORDER BY created_date DESC LIMIT 9';
+$query_regular = 'SELECT * FROM artcityposts WHERE is_featured = 0 ORDER BY created_date DESC LIMIT 6';
 $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
@@ -24,6 +24,17 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
 <body>
 
     <?php include('nav.php'); ?>
+
+    <section class="search__bar">
+        <form class="container search__bar-container" action="search.php" method="GET">
+            <div>
+                <i class="uil uil-search"></i>
+                <input type="search" name="q" placeholder="Search">
+            </div>
+            <button type="submit" class="btn">Go</button>
+        </form>
+    </section>
+
 
     <section class="featured">
         <div class="container featured__container">
@@ -46,7 +57,7 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
                     <h2 class="post__title"><a href="post.php?id=<?= $featured_post['id'] ?>">
                             <?= $featured_post['title'] ?></a></h2>
 
-                    <p class="post__body"><?= substr($featured_post['content'], 0, 200) . '...' ?></p>
+                    <p class="post__body"><?= substr($featured_post['content'], 0, 800) . '...' ?></p>
 
                     <div class="post__author">
                         <?php
@@ -139,6 +150,18 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
 
+    <footer>
+        <div class="footer__socials">
+            <a href="https://youtube.com" target="_blank"><i class="uil uil-youtube"></i></a>
+            <a href="https://facebook.com" target="_blank"><i class="uil uil-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="uil uil-instagram-alt"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="uil uil-linkedin"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="uil uil-twitter"></i></a>
+        </div>
+        <div class="footer__copyright">
+            <small>Copyright &copy; Fadlullah</small>
+        </div>
+    </footer>
 
 
 </body>

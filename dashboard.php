@@ -13,8 +13,8 @@ $query_all_posts = "SELECT p.id, p.title, p.created_date, c.title AS category_ti
                     JOIN artcitycategories c ON p.category_id = c.id";
 
 // Add sorting logic based on the selected criteria
-$sort_by = isset($_GET['sort']) ? $_GET['sort'] : 'title'; // Default sorting by title
-$sort_direction = isset($_GET['dir']) && $_GET['dir'] === 'desc' ? 'DESC' : 'ASC'; // Default sorting direction
+$sort_by = isset($_GET['sort']) ? $_GET['sort'] : 'created_date'; // Default sorting by created_date
+$sort_direction = isset($_GET['dir']) && $_GET['dir'] === 'acs' ? 'ASC' : 'DESC'; // Default sorting direction
 $valid_sort_columns = ['title', 'created_date', 'category_title'];
 if (in_array($sort_by, $valid_sort_columns)) {
     $query_all_posts .= " ORDER BY $sort_by $sort_direction";
@@ -58,13 +58,13 @@ if ($user_posts_result && $user_posts_stmt->rowCount() > 0) {
     <section class="dashboard">
         <?php if (isset($_SESSION['success'])) : // show success update 
         ?>
-            <div class="error-message">
+            <div class="alert__message success">
                 <p><?= $_SESSION['success']; ?></p>
             </div>
             <?php unset($_SESSION['success']); ?>
         <?php elseif (isset($_SESSION['error'])) : // show error, if any 
         ?>
-            <div class="error-message">
+            <div class="alert__message error">
                 <p><?= $_SESSION['error']; ?></p>
             </div>
             <?php unset($_SESSION['error']); ?>
@@ -110,7 +110,7 @@ if ($user_posts_result && $user_posts_stmt->rowCount() > 0) {
             </aside>
             <main>
                 <h2>Manage Posts</h2>
-                <p>Sort by:
+                <h4>Sort by:
                     <a href="?sort=title&dir=<?php echo ($sort_by === 'title' && $sort_direction === 'ASC') ? 'desc' : 'asc'; ?>" <?php if ($sort_by === 'title') echo 'class="active"'; ?>>
                         Title <?php if ($sort_by === 'title') echo ($sort_direction === 'ASC') ? '&#9650;' : '&#9660;'; ?>
                     </a> |
@@ -120,12 +120,12 @@ if ($user_posts_result && $user_posts_stmt->rowCount() > 0) {
                     <a href="?sort=category_title&dir=<?php echo ($sort_by === 'category_title' && $sort_direction === 'ASC') ? 'desc' : 'asc'; ?>" <?php if ($sort_by === 'category_title') echo 'class="active"'; ?>>
                         Category <?php if ($sort_by === 'category_title') echo ($sort_direction === 'ASC') ? '&#9650;' : '&#9660;'; ?>
                     </a>
-                </p>
+                </h4><br>
 
 
 
                 <?php if (isset($no_post_message)) : ?>
-                    <div class="error-message">
+                    <div class="alert__message error">
                         <p><?= $no_post_message; ?></p>
                     </div>
                 <?php else : ?>
@@ -170,6 +170,19 @@ if ($user_posts_result && $user_posts_stmt->rowCount() > 0) {
         </div>
     </section>
 
+
+    <footer>
+        <div class="footer__socials">
+            <a href="https://youtube.com" target="_blank"><i class="uil uil-youtube"></i></a>
+            <a href="https://facebook.com" target="_blank"><i class="uil uil-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="uil uil-instagram-alt"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="uil uil-linkedin"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="uil uil-twitter"></i></a>
+        </div>
+        <div class="footer__copyright">
+            <small>Copyright &copy; Fadlullah</small>
+        </div>
+    </footer>
 
 </body>
 

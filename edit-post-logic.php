@@ -4,9 +4,19 @@ include('header.php');
 require('config/ImageResize.php');
 require('config/ImageResizeException.php');
 
+// function file_upload_path($original_filename, $upload_subfolder_name = 'uploads')
+// {
+//     $path_segments = [$upload_subfolder_name, basename($original_filename)];
+//     return join(DIRECTORY_SEPARATOR, $path_segments);
+// }
 function file_upload_path($original_filename, $upload_subfolder_name = 'uploads')
 {
-    $path_segments = [$upload_subfolder_name, basename($original_filename)];
+    $current_folder = dirname(__FILE__);
+
+    // Build an array of paths segment names to be joins using OS specific slashes.
+    $path_segments = [$current_folder, $upload_subfolder_name, basename($original_filename)];
+
+    // The DIRECTORY_SEPARATOR constant is OS specific.
     return join(DIRECTORY_SEPARATOR, $path_segments);
 }
 
@@ -33,6 +43,7 @@ function resize_file($original_filename, $new_path, $max_width)
 
 if (isset($_POST['submit'])) {
     $author_id = $_SESSION['user_id'];
+    $post_id = filter_input(INPUT_POST, 'post_id', FILTER_SANITIZE_NUMBER_INT);
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $category_id = filter_input(INPUT_POST, 'category_id', FILTER_SANITIZE_NUMBER_INT);
@@ -62,21 +73,32 @@ if (isset($_POST['submit'])) {
         $thumbnail = $previous_thumbnail;
     }
 
-    // Check if the "Delete" checkbox for the thumbnail is checked
     if (isset($_POST['delete_thumbnail']) && $_POST['delete_thumbnail'] == 'on') {
-        // Delete the current thumbnail from the file system
-        if (!empty($thumbnail)) {
-            $thumbnail_path = file_upload_path($thumbnail);
-            if (file_exists($thumbnail_path)) {
-                unlink($thumbnail_path);
-            }
-        }
         // Delete the current thumbnail from the database
         $query_delete_thumbnail = "UPDATE artcityposts SET thumbnail = NULL WHERE id = :id";
         $stmt_delete_thumbnail = $db->prepare($query_delete_thumbnail);
         $stmt_delete_thumbnail->bindParam(':id', $_POST['id'], PDO::PARAM_INT);
-        $stmt_delete_thumbnail->execute();
+        if ($stmt_delete_thumbnail->execute()) {
+            // Delete the thumbnail file from the file system
+            if ($thumbnail) {
+                $thumbnail_path = 'uploads/' . $thumbnail; // Assuming the thumbnails are stored in the 'uploads' folder
+                if (file_exists($thumbnail_path)) {
+                    unlink($thumbnail_path); // Delete the file
+                }
+            }
+            // Redirect to dashboard if deletion is successful
+            $_SESSION['success'] = "Thumbnail deleted successfully.";
+            header('Location: dashboard.php');
+            exit();
+        } else {
+            // Handle database deletion failure
+            $_SESSION['error'] = "Failed to delete thumbnail from the database.";
+            header('Location: edit-post.php?id=' . $_POST['id']);
+            exit();
+        }
     }
+
+
 
 
     if (!$title || !$content || !$category_id) {
