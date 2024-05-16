@@ -727,6 +727,11 @@ select {
   .dashboard main table tr:hover td {
     background: transparent;
   }
+
+  .category__buttons h1 {
+    display: block;
+    justify-content: center;
+  }
 }
 
 /* ============================================================================== MEDIA QUERIES (SMALL DEVICES) ================================================================================== */

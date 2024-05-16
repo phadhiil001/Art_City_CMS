@@ -45,56 +45,70 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
 
-<?php
-include('nav.php');
-?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css?v=<?php echo time(); ?>">
+    <title>Categories</title>
+</head>
 
-<header class="category__title">
-    <h2>Contact Us</h2>
-</header>
+<body>
 
-<main>
+    <?php
+    include('nav.php');
+    ?>
+
+    <header class="category__title">
+        <h2>Contact Us</h2>
+    </header>
+
+    <main>
 
 
-    <section class="form_section">
-        <div class="container form__section-container">
-            <?php if (isset($_SESSION['success'])) : ?>
-                <div class="alert__message success">
-                    <p><?= $_SESSION['success']; ?></p>
-                </div>
-                <?php unset($_SESSION['success']); ?>
-            <?php elseif (isset($_SESSION['error'])) : ?>
-                <div class="alert__message error">
-                    <p><?= $_SESSION['error']; ?></p>
-                </div>
-                <?php unset($_SESSION['error']); ?>
-            <?php endif; ?>
+        <section class="form_section">
+            <div class="container form__section-container">
+                <?php if (isset($_SESSION['success'])) : ?>
+                    <div class="alert__message success">
+                        <p><?= $_SESSION['success']; ?></p>
+                    </div>
+                    <?php unset($_SESSION['success']); ?>
+                <?php elseif (isset($_SESSION['error'])) : ?>
+                    <div class="alert__message error">
+                        <p><?= $_SESSION['error']; ?></p>
+                    </div>
+                    <?php unset($_SESSION['error']); ?>
+                <?php endif; ?>
 
-            <h3>Have a question or feedback? We'd love to hear from you!</h3>
-            <h4>Please feel free to reach out to us using the form below or via email.</h4><br>
+                <h3>Have a question or feedback? We'd love to hear from you!</h3>
+                <h4>Please feel free to reach out to us using the form below or via email.</h4><br>
 
-            <form action="contact.php" method="post">
-                <input type="text" id="name" name="name" placeholder="Your Name">
-                <input type="email" id="email" name="email" placeholder="Your Email Address">
-                <textarea id="message" name="content" placeholder="Your Message"></textarea>
-                <button type="submit" name="submit" class="btn">Send Message</button>
-            </form>
+                <form action="contact.php" method="post">
+                    <input type="text" id="name" name="name" placeholder="Your Name">
+                    <input type="email" id="email" name="email" placeholder="Your Email Address">
+                    <textarea id="message" name="content" placeholder="Your Message"></textarea>
+                    <button type="submit" name="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer__socials">
+            <a href="https://youtube.com" target="_blank"><i class="uil uil-youtube"></i></a>
+            <a href="https://facebook.com" target="_blank"><i class="uil uil-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="uil uil-instagram-alt"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="uil uil-linkedin"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="uil uil-twitter"></i></a>
         </div>
-    </section>
-</main>
+        <div class="footer__copyright">
+            <small>Copyright &copy; Fadlullah</small>
+        </div>
+    </footer>
 
-<footer>
-    <div class="footer__socials">
-        <a href="https://youtube.com" target="_blank"><i class="uil uil-youtube"></i></a>
-        <a href="https://facebook.com" target="_blank"><i class="uil uil-facebook-f"></i></a>
-        <a href="https://instagram.com" target="_blank"><i class="uil uil-instagram-alt"></i></a>
-        <a href="https://linkedin.com" target="_blank"><i class="uil uil-linkedin"></i></a>
-        <a href="https://twitter.com" target="_blank"><i class="uil uil-twitter"></i></a>
-    </div>
-    <div class="footer__copyright">
-        <small>Copyright &copy; Fadlullah</small>
-    </div>
-</footer>
+    <script src="main.js"></script>
+</body>
 
-<script src="main.js"></script>
+</html>

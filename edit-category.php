@@ -31,23 +31,37 @@ if (isset($_GET['id'])) {
 }
 ?>
 
-<section class="form__section">
-    <div class="container form__section-container">
-        <button class="btn"><a href="manage-categories.php">Back</a></button>
-        <h2>Edit Category</h2>
-        <?php if (isset($_SESSION['error'])) : ?>
-            <div class="alert__message error">
-                <p><?= $_SESSION['error']; ?></p>
-            </div>
-            <?php unset($_SESSION['error']); ?>
-        <?php endif ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css?v=<?php echo time(); ?>">
+    <title>Edit Categories</title>
+</head>
 
-        <form action="edit-category-logic.php" method="post">
-            <input type="text" value="<?= $title ?>" name="title" placeholder="Title">
-            <textarea rows="4" name="description" placeholder="Description"><?= $description ?></textarea>
+<body>
+    <section class="form__section">
+        <div class="container form__section-container">
+            <button class="btn"><a href="manage-categories.php">Back</a></button>
+            <h2>Edit Category</h2>
+            <?php if (isset($_SESSION['error'])) : ?>
+                <div class="alert__message error">
+                    <p><?= $_SESSION['error']; ?></p>
+                </div>
+                <?php unset($_SESSION['error']); ?>
+            <?php endif ?>
 
-            <input type="hidden" name="category_id" value="<?= $id ?>">
-            <button type="submit" name="submit" class="btn">Update Category</button>
-        </form>
-    </div>
-</section>
+            <form action="edit-category-logic.php" method="post">
+                <input type="text" value="<?= $title ?>" name="title" placeholder="Title">
+                <textarea rows="4" name="description" placeholder="Description"><?= $description ?></textarea>
+
+                <input type="hidden" name="category_id" value="<?= $id ?>">
+                <button type="submit" name="submit" class="btn">Update Category</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="main.js"></script>
+
+</body>
+
+</html>

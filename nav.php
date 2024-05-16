@@ -21,8 +21,8 @@
                 </li>
             <?php else : ?>
                 <li>
-                    <a href="signin.php">Sign in |</a>
-                    <a href="signup.php">| Sign up</a>
+                    <a href="signin.php">Sign in </a>
+                    <a href="signup.php">Sign up</a>
                 </li>
             <?php endif; ?>
         </ul>

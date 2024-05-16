@@ -25,27 +25,41 @@ if (isset($_GET['id'])) {
 }
 ?>
 
-<section class="form__section">
-    <div class="container form__section-container">
-        <button class="btn"><a href="manage-users.php">Back</a></button>
-        <h2>Edit User</h2>
-        <?php if (isset($_SESSION['error'])) : ?>
-            <div class="alert__message error">
-                <p><?= $_SESSION['error']; ?></p>
-            </div>
-            <?php unset($_SESSION['error']); ?>
-        <?php endif ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css?v=<?php echo time(); ?>">
+    <title>Edit Users</title>
+</head>
 
-        <form action="edit-user-logic.php" method="post">
-            <input type="text" value="<?= htmlspecialchars($firstname) ?>" name="firstname" placeholder="First Name">
-            <input type="text" value="<?= htmlspecialchars($lastname) ?>" name="lastname" placeholder="Last Name">
+<body>
 
-            <select name="userrole">
-                <option value="0" <?php echo $is_admin == 0 ? 'selected' : ''; ?>>Artist</option>
-                <option value="1" <?php echo $is_admin == 1 ? 'selected' : ''; ?>>Admin</option>
-            </select>
-            <input type="hidden" name="user_id" value="<?= $id ?>">
-            <button type="submit" name="submit" class="btn">Update User</button>
-        </form>
-    </div>
-</section>
+    <section class="form__section">
+        <div class="container form__section-container">
+            <button class="btn"><a href="manage-users.php">Back</a></button>
+            <h2>Edit User</h2>
+            <?php if (isset($_SESSION['error'])) : ?>
+                <div class="alert__message error">
+                    <p><?= $_SESSION['error']; ?></p>
+                </div>
+                <?php unset($_SESSION['error']); ?>
+            <?php endif ?>
+
+            <form action="edit-user-logic.php" method="post">
+                <input type="text" value="<?= htmlspecialchars($firstname) ?>" name="firstname" placeholder="First Name">
+                <input type="text" value="<?= htmlspecialchars($lastname) ?>" name="lastname" placeholder="Last Name">
+
+                <select name="userrole">
+                    <option value="0" <?php echo $is_admin == 0 ? 'selected' : ''; ?>>Artist</option>
+                    <option value="1" <?php echo $is_admin == 1 ? 'selected' : ''; ?>>Admin</option>
+                </select>
+                <input type="hidden" name="user_id" value="<?= $id ?>">
+                <button type="submit" name="submit" class="btn">Update User</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

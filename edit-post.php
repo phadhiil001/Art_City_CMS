@@ -51,9 +51,13 @@ unset($_SESSION['save']);
 
 <body>
     <section class="form__section">
+        <button id="show__sidebar-btn" class="sidebar__toggle"><i class="uil uil-angle-right-b"></i></button>
+        <button id="hide__sidebar-btn" class="sidebar__toggle"><i class="uil uil-angle-left-b"></i></button>
+
         <div class="container form__section-container">
-            <button class="btn"><a href="dashboard.php">Back</a></button>
+
             <h2>Edit Post</h2>
+            <button class="btn"><a href="dashboard.php">Back</a></button>
             <?php if (isset($_SESSION['error'])) : ?>
                 <div class="alert__message error">
                     <p><strong><?= $_SESSION['error']; ?></strong></p>
@@ -102,6 +106,8 @@ unset($_SESSION['save']);
             </form>
         </div>
     </section>
+
+    <script src="main.js"></script>
 </body>
 
 </html>

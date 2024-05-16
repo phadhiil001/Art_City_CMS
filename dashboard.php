@@ -69,8 +69,11 @@ if ($user_posts_result && $user_posts_stmt->rowCount() > 0) {
             </div>
             <?php unset($_SESSION['error']); ?>
         <?php endif ?>
-        <div class="container dashboard__container">
 
+
+        <div class="container dashboard__container">
+            <button id="show__sidebar-btn" class="sidebar__toggle"><i class="uil uil-angle-right-b"></i></button>
+            <button id="hide__sidebar-btn" class="sidebar__toggle"><i class="uil uil-angle-left-b"></i></button>
 
             <aside>
                 <ul>
