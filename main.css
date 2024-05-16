@@ -804,6 +804,7 @@ select {
     height: 100vh;
     transition: var(--transition);
     background: var(--color-primary);
+    z-index: 2;
   }
 
   .dashboard .sidebar__toggle {

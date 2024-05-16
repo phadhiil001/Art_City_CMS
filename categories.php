@@ -105,4 +105,4 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </footer>
 
-<script src="/js/main.js"></script>
+<script src="main.js"></script>

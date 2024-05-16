@@ -184,7 +184,7 @@ if ($user_posts_result && $user_posts_stmt->rowCount() > 0) {
         </div>
     </footer>
 
-    <script src="/js/main.js"></script>
+    <script src="main.js"></script>
 
 </body>
 
