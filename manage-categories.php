@@ -112,3 +112,5 @@ if ($categories->rowCount() == 0) {
         <small>Copyright &copy; Fadlullah</small>
     </div>
 </footer>
+
+<script src="/js/main.js"></script>

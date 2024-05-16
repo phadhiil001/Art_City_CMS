@@ -81,3 +81,18 @@ if (isset($_GET['q'])) {
         <?php endwhile ?>
     </div>
 </section>
+
+<footer>
+    <div class="footer__socials">
+        <a href="https://youtube.com" target="_blank"><i class="uil uil-youtube"></i></a>
+        <a href="https://facebook.com" target="_blank"><i class="uil uil-facebook-f"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="uil uil-instagram-alt"></i></a>
+        <a href="https://linkedin.com" target="_blank"><i class="uil uil-linkedin"></i></a>
+        <a href="https://twitter.com" target="_blank"><i class="uil uil-twitter"></i></a>
+    </div>
+    <div class="footer__copyright">
+        <small>Copyright &copy; Fadlullah</small>
+    </div>
+</footer>
+
+<script src="/js/main.js"></script>

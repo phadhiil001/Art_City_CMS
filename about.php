@@ -33,3 +33,5 @@ include('nav.php');
         <small>Copyright &copy; Fadlullah</small>
     </div>
 </footer>
+
+<script src="/js/main.js"></script>

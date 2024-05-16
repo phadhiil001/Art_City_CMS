@@ -109,3 +109,5 @@ $category_title = $category['title'];
         <small>Copyright &copy; Fadlullah</small>
     </div>
 </footer>
+
+<script src="/js/main.js"></script>

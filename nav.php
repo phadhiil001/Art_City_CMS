@@ -1,9 +1,6 @@
 <link rel="stylesheet" href="main.css?v=<?php echo time(); ?>">
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-
-
-
 <nav>
     <div class="container nav__container">
         <a href="index.php" class="nav__logo">Art City Inc.</a>
@@ -29,5 +26,9 @@
                 </li>
             <?php endif; ?>
         </ul>
+
+        <button id="open__nav-btn"><i class="uil uil-bars"></i></button>
+        <button id="close__nav-btn"><i class="uil uil-multiply"></i></button>
+
     </div>
 </nav>

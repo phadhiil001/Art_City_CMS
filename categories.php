@@ -104,3 +104,5 @@ $regular_posts =  $db->query($query_regular)->fetchAll(PDO::FETCH_ASSOC);
         <small>Copyright &copy; Fadlullah</small>
     </div>
 </footer>
+
+<script src="/js/main.js"></script>
